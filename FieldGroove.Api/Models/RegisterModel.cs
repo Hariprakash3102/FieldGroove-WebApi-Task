@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FieldGroove.Api.Model
+namespace FieldGroove.Api.Models
 {
 	public class RegisterModel
 	{

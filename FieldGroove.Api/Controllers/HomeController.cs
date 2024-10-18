@@ -1,5 +1,5 @@
 ﻿using FieldGroove.Api.Data;
-using FieldGroove.Api.Model;
+using FieldGroove.Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

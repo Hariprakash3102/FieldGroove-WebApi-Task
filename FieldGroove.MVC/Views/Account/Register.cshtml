@@ -1,0 +1,269 @@
+﻿@using FieldGroove.MVC.Constants;
+@model RegisterModel;
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100&display=swap" rel="stylesheet">
+</head>
+<div>
+	<div class="container d-flex justify-content-between pt-4">
+		<div>
+			<a asp-controller="Account" asp-action="Dashboard"><img src="/images/logo-fieldgroove-blue.svg" alt="Feild_groove" width="270" /></a>
+		</div>
+		<div>
+			<ul class="list-unstyled navItems hstack gap-xl-4 gap-lg-0">
+				<li class="pe-3"><a class="btn">@ApplicationConstants.Item1</a></li>
+				<li class="pe-3">
+					<a class="btn dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+						@ApplicationConstants.Item2
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark navItems2">
+						<li><a class="dropdown-item" href="#">flooring</a></li>
+						<li><a class="dropdown-item" href="#">roofing</a></li>
+						<li><a class="dropdown-item" href="#">drywall</a></li>
+						<li><a class="dropdown-item" href="#">insulation</a></li>
+					</ul>
+				</li>
+				<li class="pe-3"><a class="btn">@ApplicationConstants.Item3</a></li>
+				<li class="pe-3"><a class="btn">@ApplicationConstants.Item4</a> </li>
+				<li class="pe-3"><a class="btn" asp-controller="Account" asp-action="Login">@ApplicationConstants.Item5</a> </li>
+				<li class="pe-3"><a class="btn navItems2" asp-controller="Account" asp-action="Register">@ApplicationConstants.Item6</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="BgImg">
+		<h1 class="display-5 text-center BlueColor roboto-thin mt-5">Try FeildGroove Free For 7 Days!</h1>
+		<div class="container d-flex justify-content-between p-0 containerStyle  mt-5">
+			<form method="post" class="Registerformstyle rounded-2" id="myForm">
+				<div class="carousel slide" id="RegisterFormCarousel" data-bs-interval="false">
+					<div class="carousel-inner">
+						<div class="carousel-item active" style=" transition: transform 0.3s none">
+							<div class="vstack gap-3 p-5">
+								<h5>ACCOUNT INFO</h5>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.FirstName"></label>
+									<input type="text" asp-for="@Model.FirstName" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.LastName"></label>
+									<input type="text" asp-for="@Model.LastName" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.CompanyName"></label>
+									<input type="text" asp-for="@Model.CompanyName" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.Phone"></label>
+									<input type="number" asp-for="@Model.Phone" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.Email"></label>
+									<input type="text" asp-for="@Model.Email" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.Password"></label>
+									<input type="password" asp-for="@Model.Password" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.PasswordAgain"></label>
+									<input type="password" asp-for="@Model.PasswordAgain" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.TimeZone"></label>
+									<select type="text" asp-for="@Model.TimeZone" class="py-2 px-1">
+										<option>Central Standard Time</option>
+										<option>Eastern Standard Time</option>
+										<option>Mountain Standard Time</option>
+										<option>pacific Standard Time</option>
+									</select>
+								</div>
+								<div>
+									<button class="w-50 float-end text-white border-0 py-2 rounded" style="background-color:#E56355" data-bs-target="#RegisterFormCarousel" data-bs-slide="next">
+										Next
+									</button>
+								</div>
+
+							</div>
+						</div>
+						<div class="carousel-item" style="height:862px">
+							<div class="vstack gap-3 p-5">
+								<h5>
+									OFFICE ADDRESS
+									<i class="bi bi-question-circle"
+									   data-bs-toggle="tooltip"
+									   title="This is your main office address, you can setup mulitple location in your settings after logging in">
+									</i>
+								</h5>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.StreetAddress1"></label>
+									<input type="text" asp-for="@Model.StreetAddress1" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.StreetAddress2"></label>
+									<input type="text" asp-for="@Model.StreetAddress2" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.City"></label>
+									<input type="text" asp-for="@Model.City" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.State"></label>
+									<input type="text" asp-for="@Model.State" class="py-1 px-1" />
+								</div>
+								<div class="vstack gap-2">
+									<label asp-for="@Model.Zip"></label>
+									<input type="text" asp-for="@Model.Zip" class="py-1 px-1" />
+								</div>
+								<div class="hstack gap-2">
+									<button class="btn w-50 text-white border-secondary py-2 rounded" style="background-color:transparent;" data-bs-target="#RegisterFormCarousel" data-bs-slide="prev">
+										Back
+									</button>
+									<button class="w-50 text-white border-0 py-2 rounded" type="submit" style="background-color:#E56355">Sign Up</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="w-50 p-5 rounded-2 flex-fill">
+				<div asp-validation-summary="All" class="ValidationList text-danger" style="font-size:14px">
+					@if (ViewBag.ErrorMessage is not null)
+					{
+						<ul>
+							<li>@ViewBag.ErrorMessage</li>
+						</ul>
+					}
+				</div>
+				<div class="mb-4">
+					<h5 style="color:#F6584D">SIGN UP NOW TO START YOUR FREE TRIAL</h5>
+				</div>
+				<div>
+					<p style="letter-spacing:1px;color:#252A74">
+						FieldGroove empowers you to manage every aspect of your contracting business anytime, anywhere,
+						and from any device. Enjoy a free trial where you can experience everything FieldGroove has to offer, including:
+					</p>
+				</div>
+				<div style="color:#252A74">
+					<ul class="list-unstyled">
+						<li class="OfferList">Managing the entire job cycle from lead creation to post-job reporting</li>
+						<li class="OfferList">Monitoring pipeline and backlog numbers, in real time</li>
+						<li class="OfferList">Building estimates for your prospects to review and accept via email or on the job site</li>
+						<li class="OfferList">Keeping close track of your team, equipment, inventory, and jobs</li>
+						<li class="OfferList">Automating scheduling and dispatching</li>
+						<li class="OfferList">Preparing work orders and load tickets with one click</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container containerStyle bg-white mt-5 pt-5">
+		<div class="text-center">
+			<h2 class="BlueColor">Frequently Asked Questions</h2>
+		</div>
+		<div class="row mt-5 text-justify" style="color:#1A3265">
+			<div class="col-6 pe-5">
+				<div class="py-2">
+					<h5 class="BlueColor fw-bold">Will my card on file be charged?</h5>
+					<p>
+						We don’t charge anything at all before or during the trial period.
+						The card on file is simply so we know you’re a person, not a robot.
+					</p>
+				</div>
+				<hr />
+				<div class="py-2">
+					<h5 class="BlueColor fw-bold">How long is my free trial?</h5>
+					<p>
+						The free trial is for 7 days.
+					</p>
+				</div>
+				<hr />
+				<div class="py-2">
+					<h5 class="BlueColor fw-bold">Do you have customer representatives to answer questions during my trial?</h5>
+					<p>
+						We have several resources (documents and videos) for training.
+						The portal has a button you can click to send instant questions,
+						and you will be assigned a personal point of contact who will be available to assist as needed.
+					</p>
+				</div>
+			</div>
+			<div class="col-6 ps-5">
+				<div class="py-2">
+					<h5 class="BlueColor fw-bold">Can I cancel my free trial at any time?</h5>
+					<p>
+						Absolutely. All we ask is that you give FieldGroove a fair shot,
+						because it is rare that we can’t improve your business!
+					</p>
+				</div>
+				<hr />
+				<div class="py-2">
+					<h5 class="BlueColor fw-bold">Can I change or cancel my plan later on?</h5>
+					<p>
+						We have several resources (documents and videos) for training.
+						The portal has a button you can click to send instant questions,
+						and you will be assigned a personal point of contact who will be available to assist as needed.
+					</p>
+				</div>
+				<hr />
+				<div class="py-2">
+					<h5 class="BlueColor fw-bold">What happens after my trial ends?</h5>
+					<p>
+						Typically, you’ll find that you can’t live without us! Before the end of the trial,
+						we will be providing you with a quote for continuing the subscription.
+						We will also be working closely with you toward a seamless transition.
+						After the initial 7 days trial, with your acceptance of our quote and your approval,
+						we will start charging for the monthly subscription.
+						We will provide you with all the tools necessary for on-boarding as well.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mt-5">
+		<div class="d-flex justify-content-center ">
+			<ul class="text-uppercase list-unstyled hstack gap-4 navItems">
+				<li><a>@ApplicationConstants.Item1</a></li>
+				<li class="text-secondary">|</li>
+				<li><a>@ApplicationConstants.Item3</a></li>
+				<li class="text-secondary">|</li>
+				<li><a>@ApplicationConstants.Item4</a></li>
+				<li class="text-secondary">|</li>
+				<li><a asp-controller="Account" asp-action="Login">@ApplicationConstants.Item5</a></li>
+				<li class="text-secondary">|</li>
+				<li><a asp-controller="Account" asp-action="Rgister">@ApplicationConstants.Item6</a></li>
+			</ul>
+		</div>
+
+		<div class="LoginFooterBg">
+			<div class="container LoginFooter">
+				<div class="mb-2">
+					<img src="/images/logo-footer.jpg" alt="Footer Logo" />
+				</div>
+				<div class=" d-flex justify-content-between">
+					<div class="w-25">
+						<p class="text-justify lh-lg">
+							Copyright © FieldGroove, LLC 2024. All Rights Reserved.716 Newman Springs Road, Suite 307 Lincroft, NJ 07738
+						</p>
+						<p>
+							<a href="#" style="color:#E76655;text-decoration:none">Privacy Policy</a>
+						</p>
+					</div>
+					<div class="w-25">
+						<p class="text-justify lh-lg">
+							We would love to show you the power of FieldGroove.
+							To setup a demo or get an account setup, please contact us at
+							<a style="color:#E76655;text-decoration:none" href="#">@ApplicationConstants.LoginFooterEmail</a>
+							or by phone at
+							<a style="color:#E76655;text-decoration:none" href="#">@ApplicationConstants.LoginFooterPhone</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="fixedchatbtn">
+		<button class="border-0 rounded-circle p-2" style="background-color:#3957A9">
+			<span class="heroicons--chat-bubble-left-right-solid"></span>
+		</button>
+	</div>
+</div>

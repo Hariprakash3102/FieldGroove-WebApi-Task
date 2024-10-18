@@ -1,4 +1,4 @@
-﻿using FieldGroove.Api.Model;
+﻿using FieldGroove.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FieldGroove.Api.Data

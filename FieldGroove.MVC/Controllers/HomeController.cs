@@ -1,32 +1,75 @@
-using FieldGroove.MVC.Models;
+using FieldGroove.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace FieldGroove.MVC.Controllers
 {
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly IHttpClientFactory httpClientFactory; 
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
 		{
 			_logger = logger;
+			this.httpClientFactory = httpClientFactory;
 		}
 
-		public IActionResult Index()
+		[HttpGet]
+		public async Task<IActionResult> Leads()
+		{
+			var client = httpClientFactory.CreateClient();
+			var response = await client.GetAsync("https://localhost:7222/api/Home/Leads");
+
+			if (response.IsSuccessStatusCode)
+			{
+				var jsonData = await response.Content.ReadAsStringAsync();
+
+				var dataModel = JsonConvert.DeserializeObject<List<LeadsModel>>(jsonData);
+
+				return View(dataModel);
+			}
+			return View(new List<LeadsModel>());
+		}
+
+		[HttpGet]
+		public IActionResult CreateLeads()
 		{
 			return View();
 		}
 
-		public IActionResult Privacy()
+		[HttpPost]
+		public async Task<IActionResult> CreateLeads(LeadsModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			var client = httpClientFactory.CreateClient();
+
+			var jsonContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+			var response = await client.PostAsync("https://localhost:7222/api/Home/CreateLead", jsonContent);
+
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("Index");
+			}
+			ModelState.AddModelError("", "Failed to create lead");
+			return View(model);
+		}
+
+		public IActionResult Dashboard()
 		{
 			return View();
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
+		public IActionResult EditLeads()
 		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+			return View();
 		}
 	}
 }
