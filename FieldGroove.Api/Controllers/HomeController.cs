@@ -20,7 +20,7 @@ namespace FieldGroove.Api.Controllers
 			this.dbcontext = dbcontext;
 		}
 
-		[HttpGet]
+		[HttpGet("Leads")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IActionResult> Leads()
 		{
@@ -29,10 +29,10 @@ namespace FieldGroove.Api.Controllers
 		}
 
 
-		[HttpPost]
+		[HttpPost("CreateLead")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> CreateLeads([FromBody] LeadsModel model)
+		public async Task<IActionResult> CreateLead([FromBody] LeadsModel model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -44,7 +44,7 @@ namespace FieldGroove.Api.Controllers
 		}
 
 
-		[HttpPut]
+		[HttpPut("EditLeads")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
