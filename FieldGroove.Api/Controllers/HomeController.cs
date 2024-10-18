@@ -44,11 +44,11 @@ namespace FieldGroove.Api.Controllers
 		}
 
 
-		[HttpPut("EditLeads")]
+		[HttpPut("EditLead")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<IActionResult> EditLeads([FromBody] LeadsModel model)
+		public async Task<IActionResult> EditLead([FromBody] LeadsModel model)
 		{
 			if (ModelState.IsValid)
 			{
