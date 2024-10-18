@@ -35,13 +35,13 @@ namespace FieldGroove.MVC.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult CreateLeads()
+		public IActionResult CreateLead()
 		{
 			return View();
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateLeads(LeadsModel model)
+		public async Task<IActionResult> CreateLead(LeadsModel model)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -59,7 +59,7 @@ namespace FieldGroove.MVC.Controllers
 				return RedirectToAction("Index");
 			}
 			ModelState.AddModelError("", "Failed to create lead");
-			return View(model);
+			return RedirectToAction("Leads");
 		}
 
 		public IActionResult Dashboard()
@@ -67,7 +67,7 @@ namespace FieldGroove.MVC.Controllers
 			return View();
 		}
 
-		public IActionResult EditLeads()
+		public IActionResult EditLead()
 		{
 			return View();
 		}
