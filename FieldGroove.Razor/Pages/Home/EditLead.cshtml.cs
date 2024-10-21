@@ -19,7 +19,7 @@ namespace FieldGroove.Razor.Pages.Home
         public async Task OnGet(int id)
         {
             var httpClient = _httpClientFactory.CreateClient("FieldGrooveApi");
-            var result = await httpClient.GetFromJsonAsync<LeadsDTO>($"api/Home/Leads/{id}");
+            var result = await httpClient.GetFromJsonAsync<LeadsDTO>($"Home/Leads/{id}");
             EditLead = result ?? new LeadsDTO();
         }
         public async Task<IActionResult> OnPost()
@@ -27,7 +27,7 @@ namespace FieldGroove.Razor.Pages.Home
             if (ModelState.IsValid)
             {
                 var httpClient = _httpClientFactory.CreateClient("FieldGrooveApi");
-                await httpClient.PutAsJsonAsync<LeadsDTO>($"api/Home/EditLead",EditLead);
+                await httpClient.PutAsJsonAsync<LeadsDTO>($"Home/EditLead",EditLead);
                 return RedirectToPage("/Home/Leads");
             }
             return Page();

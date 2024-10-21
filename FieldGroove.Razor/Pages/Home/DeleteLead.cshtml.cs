@@ -11,10 +11,15 @@ namespace FieldGroove.Razor.Pages.Home
         {
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<IActionResult> OnDelete(int id)
+
+        public void OnGet()
+        {
+
+        }
+        public async Task<IActionResult> OnPost (int id)
         {
             var httpClient = _httpClientFactory.CreateClient();
-            await httpClient.DeleteAsync($"api/Home/Delete/{id}");
+            await httpClient.DeleteAsync($"Home/Delete/{id}");
             return RedirectToPage("/Home/Leads");
         }
     }

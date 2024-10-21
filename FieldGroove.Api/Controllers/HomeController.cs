@@ -97,7 +97,7 @@ namespace FieldGroove.Api.Controllers
 			}
 
 			byte[] buffer = Encoding.UTF8.GetBytes(csv.ToString());
-			return File(buffer, "text/csv", "data.csv");
+			return File(buffer, "text/csv", "LeadsData.csv");
 		}
 
 	}

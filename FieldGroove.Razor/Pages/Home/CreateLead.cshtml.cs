@@ -23,7 +23,7 @@ namespace FieldGroove.Razor.Pages.Home
         public async Task<IActionResult> OnPost() {
             if (CreateLead != null) {
 				var httpClient = _httpClientFactory.CreateClient("FieldGrooveApi");
-                await httpClient.PostAsJsonAsync<LeadsDTO>("api/Home/CreateLead",CreateLead);
+                await httpClient.PostAsJsonAsync<LeadsDTO>("Home/CreateLead",CreateLead);
                 return RedirectToPage("/Home/Leads");
 			}
             return Page();

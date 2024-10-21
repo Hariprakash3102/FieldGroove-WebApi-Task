@@ -257,22 +257,24 @@
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#DeleteModal-@user.Id">
                                             <iconify-icon icon="material-symbols:delete" width="1.6em" height="1.6em" style="color: #d60000"></iconify-icon>
                                         </a>
-                                        <div class="modal fade" id="DeleteModal-@user.Id" tabindex="-1" aria-labelledby="DeleteModalLabel-@user.Id" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header justify-content-center">
-                                                        <h3 class="modal-title">Delete Lead</h3>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="text-center">Are you sure you want to delete the User <strong>"@user.ProjectName"</strong>?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <a class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@user.Id"> <i class="bi bi-trash-fill"></i> Delete</a>
+                                        <form method="post">
+                                            <div class="modal fade" id="DeleteModal-@user.Id" tabindex="-1" aria-labelledby="DeleteModalLabel-@user.Id" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header justify-content-center">
+                                                            <h3 class="modal-title">Delete Lead</h3>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="text-center">Are you sure you want to delete the User <strong>"@user.ProjectName"</strong>?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button class="btn btn-danger" type="submit" asp-route-id="@user.Id"> <i class="bi bi-trash-fill"></i> Delete</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
 
                                         @*Download CSV File*@
                                         <a asp-controller="Home" asp-action="DownloadCsv">

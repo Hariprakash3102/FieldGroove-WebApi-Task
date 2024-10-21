@@ -1,4 +1,4 @@
-﻿@using FieldGroove.Api.Models;
+﻿@using FieldGroove.MVC.Models;
 @model List<LeadsModel>;
 
 <head>
@@ -221,7 +221,7 @@
                                 <th scope="col">Action</th>
                                 <th scope="col">Assignee</th>
                                 <th scope="col">Bid Date</th>
-                                <th scope="col">operation</th>
+                                <th scope="col" class="text-center">operation</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -245,7 +245,7 @@
                                     <td class="">@user.Action</td>
                                     <td class="">@user.Assignee</td>
                                     <td class="">@user.BidDate</td>
-                                    <td class="hstack gap-2">
+                                    <td class="d-flex justify-content-evenly">
                                         @*Update model*@
                                         <a asp-action="EditLead" asp-controller="Home" asp-route-id="@user.Id">
                                             <iconify-icon icon="bxs:edit" width="1.6em" height="1.6em" style="color: dodgerblue"></iconify-icon>
@@ -266,7 +266,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@user.Id"> <i class="bi bi-trash-fill"></i> Delete</a>
+                                                        <a class="btn btn-danger" asp-controller="Home" asp-action="DeleteLead" asp-route-id="@user.Id"> <i class="bi bi-trash-fill"></i> Delete</a>
                                                     </div>
                                                 </div>
                                             </div>

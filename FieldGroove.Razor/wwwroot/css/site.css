@@ -1,22 +1,207 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.roboto-thin {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+a {
+    text-decoration: none;
+}
+
+.btn:focus {
+    box-shadow: none;
+    outline: none;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: "Open Sans", sans-serif;
+    box-sizing: border-box;
+}
+
+.navItems * {
+    text-transform: uppercase;
+    color: #13254b;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: none;
+}
+
+.navItems2 > li > a {
+    padding-left: 15px;
+    padding-right: 35px;
+}
+
+.navItems2 > li:hover {
+    background-color: #E56355;
+    color: white;
+}
+
+.navItems2.btn {
+    background-color: #13254b;
+    color: white;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+    .navItems2.btn:hover {
+        background-color: #E56355;
+        color: white;
+    }
+
+.navItems > li > a:hover {
+    color: #E56355;
+}
+
+.Registerformstyle {
+    position: relative;
+    color: white;
+    background-color: #182446;
+    width: 40%;
+}
+
+    .Registerformstyle::after {
+        content: "";
+        position: absolute;
+        top: 60px;
+        right: -30px;
+        height: 0px;
+        width: 0px;
+        border: solid 15px transparent;
+        border-left-color: #172648;
+        overflow: hidden;
+    }
+
+.Loginformstyles {
+    position: relative;
+    color: white;
+    background-color: #182446;
+    width: 60%;
+}
+
+.Loginformstyle {
+    position: relative;
+    color: white;
+    background-color: #182446;
+    width: 60%;
+}
+
+    .Loginformstyle::after {
+        content: "";
+        position: absolute;
+        top: 60px;
+        right: -30px;
+        height: 0px;
+        width: 0px;
+        border: solid 15px transparent;
+        border-left-color: #172648;
+        overflow: hidden;
+    }
+
+.Signbtn {
+    background-color: #E56355;
+}
+
+input {
+    outline: none;
+}
+
+.createbtn {
+    background-color: #192447;
+    color: white;
+}
+
+    .createbtn:hover {
+        color: white;
+    }
+
+.containerStyle {
+    width: 60%;
+    background-color: #F2F5F8;
+}
+
+.LoginDiv {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+}
+
+.loginPara {
+    letter-spacing: 1px;
+    line-height: 1.4em;
+}
+
+.LoginFooter {
+    color: gray;
+    font-size: 13px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+.LoginFooterBg {
+    background-color: #182346;
+}
+
+.BgImg {
+    background-image: url("../images/bg.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: 0px 200px;
+}
+
+.heroicons--chat-bubble-left-right-solid {
+    display: inline-block;
+    width: 2.5em;
+    height: 2em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='white'%3E%3Cpath d='M4.913 2.658q3.115-.406 6.337-.408c2.147 0 4.262.139 6.337.408c1.922.25 3.291 1.861 3.405 3.727a4.4 4.4 0 0 0-1.032-.211a51 51 0 0 0-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 0 0 2.433 3.984L7.28 21.53A.75.75 0 0 1 6 21v-4.03a49 49 0 0 1-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979'/%3E%3Cpath d='M15.75 7.5q-2.065 0-4.086.169C10.124 7.797 9 9.103 9 10.609v4.285c0 1.507 1.128 2.814 2.67 2.94q1.865.153 3.768.165l2.782 2.781a.75.75 0 0 0 1.28-.53v-2.39l.33-.026c1.542-.125 2.67-1.433 2.67-2.94v-4.286c0-1.505-1.125-2.811-2.664-2.94A49 49 0 0 0 15.75 7.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.fixedchatbtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+select {
+    outline: none;
+}
+
+.BlueColor {
+    color: #3652AC;
+}
+
+.OfferList {
+    position: relative;
+    padding-left: 28px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+
+    .OfferList::before {
+        content: url("../images/icon-item.png");
+        position: absolute;
+        top: 12px;
+        left: 0px;
+        width: 18px;
+        height: 18px;
+    }
+.ValidationList>ul{
+    padding-left:18px;
+}
+
+.text-justify{
+    text-align:justify;
 }

@@ -7,7 +7,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddHttpClient("FieldGrooveApi", options =>
 {
-	options.BaseAddress = new Uri("https://localhost:7222/");
+	options.BaseAddress = new Uri("https://localhost:7222/api/");
 });
 
 #endregion

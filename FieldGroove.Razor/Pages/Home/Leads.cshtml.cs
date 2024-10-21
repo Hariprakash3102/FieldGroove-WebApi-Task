@@ -19,14 +19,14 @@ namespace FieldGroove.Razor.Pages.Home
 		public async Task OnGet()
 		{
 			var httpClient = _httpClientFactory.CreateClient("FieldGrooveApi");
-			var result = await httpClient.GetFromJsonAsync<List<LeadsDTO>>("api/Home/Leads");
+			var result = await httpClient.GetFromJsonAsync<List<LeadsDTO>>("Home/Leads");
 			Leads = result ?? new List<LeadsDTO>();
 		}
 
-        public async Task<IActionResult> OnPostDelete(int id)
+        public async Task<IActionResult> OnPost(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient();
-            await httpClient.DeleteAsync($"api/Home/Delete/{id}");
+            var httpClient = _httpClientFactory.CreateClient("FieldGrooveApi");
+            await httpClient.DeleteAsync($"Home/Delete/{id}");
             return RedirectToPage("/Home/Leads");
         }
     }

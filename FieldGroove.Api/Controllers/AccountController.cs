@@ -41,6 +41,7 @@ namespace FieldGroove.Api.Controllers
 			if (ModelState.IsValid)
 			{
 				await dbcontext.UserData.AddAsync(entity);
+				await dbcontext.SaveChangesAsync();
 				return Ok(entity);
 
 			}
