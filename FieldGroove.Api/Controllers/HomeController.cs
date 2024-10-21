@@ -28,6 +28,13 @@ namespace FieldGroove.Api.Controllers
 			return Ok(User);
 		}
 
+		[HttpGet("Leads/{id:int}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public async Task<IActionResult> Leads(int id)
+		{
+			var User = await dbcontext.Leads.FindAsync(id);
+			return Ok(User);
+		}
 
 		[HttpPost("CreateLead")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
@@ -63,7 +70,7 @@ namespace FieldGroove.Api.Controllers
 			return BadRequest();
 		}
 
-		[HttpDelete("{id:int}")]
+		[HttpDelete("Delete/{id:int}")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			var response = await dbcontext.Leads.FindAsync(id);

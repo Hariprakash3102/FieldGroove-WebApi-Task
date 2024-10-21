@@ -1,0 +1,313 @@
+﻿@page
+@model FieldGroove.Razor.Pages.Home.LeadsModel
+@{
+}
+
+<head>
+    <style>
+        .vr {
+            color: white;
+            opacity: 1;
+        }
+
+        #dt-length-0 {
+            margin-left: 10px;
+            margin-right: 10px;
+            background-color: white;
+        }
+
+        #dt-search-0 {
+            background-color: white;
+        }
+    </style>
+</head>
+<div class="vh-100 d-flex flex-column">
+    <div class="d-flex justify-content-between sticky-top flex-wrap" style="background-color:#6389FB;">
+        <div>
+            <ul class="hstack list-unstyled m-0">
+                <li class="py-1">
+                    <a class="btn"><span class="fw-bold text-white">FIELD</span> <span class="text-white fw-light opacity-50">GROOVE</span></a>
+                </li>
+                <li class="vr"></li>
+                <li><a class="btn text-white">Leads</a></li>
+                <li class="vr"></li>
+                <li><a class="btn text-white">Opportunities</a></li>
+                <li class="vr"></li>
+                <li><a class="btn text-white">Jobs</a></li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Accounting
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Customers
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Inventory
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dispatcher
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+            </ul>
+        </div>
+        <div class="hstack gap-2 px-3">
+            <div class="d-flex align-items-center bg-white rounded-pill px-2 py-1">
+                <iconify-icon icon="fe:search" width="1.2em" height="1.2em"></iconify-icon>
+                <input type="search" placeholder="Search anything..." class="border-0 bg-transparent ps-1" style="font-size:14px" />
+            </div>
+            <div class="hstack gap-2">
+                <iconify-icon icon="gg:profile" width="1.5em" height="1.5em"></iconify-icon>
+                <p class="m-0 text-white">@ViewBag.Username</p>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0 flex-fill">
+        @*Side Bar*@
+        <div class="col-1 p-0 m-0" style="font-size:12px;background-color:#E8E8E8;width:7.2%;">
+            <div class="sticky-top" style="top:70px">
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <iconify-icon icon="pajamas:task-done" style="color: gray;" width="40" height="40"></iconify-icon>
+                    <span class="my-1">Tasks</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <iconify-icon icon="uil:calender" style="color: gray;" width="40" height="40"></iconify-icon>
+                    <span class="my-1">Calender</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <iconify-icon icon="mdi:chart-bar" style="color: gray;" width="40" height="40"></iconify-icon>
+                    <span class="my-1">Reports</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <iconify-icon icon="fa-solid:users" style="color: gray;" width="40" height="40"></iconify-icon>
+                    <span class="my-1">Users</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <iconify-icon icon="lets-icons:setting-fill" style="color: gray;" width="40" height="40"></iconify-icon>
+                    <span class="my-1">Settings</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <iconify-icon icon="ph:question-fill" style="color: gray;" width="40" height="40"></iconify-icon>
+                    <span class="my-1">Supports</span>
+                </div>
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <iconify-icon icon="bi:speedometer2" style="color: gray;" width="40" height="40"></iconify-icon>
+                    <span class="my-1">Super Admin</span>
+                </div>
+            </div>
+
+        </div>
+        @*Main Content*@
+        <div class="col p-0 m-0">
+            <div class="d-flex justify-content-between bg-secondary bg-opacity-10 px-4 py-4">
+                <div><h2>Leads</h2></div>
+                <div class="hstack gap-3">
+                    <button class="border-0 rounded-2 px-3 py-2 text-white" style="background-color:darkorange">View Converted</button>
+                    <button class="border-0 rounded-2 px-3 py-2 text-white" style="background-color:darkorange">View Archived</button>
+                    <a asp-page="/Home/CreateLead" class="btn border-0  rounded-2 px-3 py-2 text-white" style="background-color:limegreen">Add Lead</a>
+                </div>
+            </div>
+            <div class="mx-4 my-3">
+                <div class="row p-0 m-0 gap-4">
+                    <div class="col-3 card bg-secondary bg-opacity-10 p-4 m-0 border-1">
+                        <form class="vstack gap-3">
+                            <input type="text" placeholder="Search Leads..." class="form-control" />
+                            <select class="form-select">
+                                <option>Select an Action</option>
+                                <option>One</option>
+                                <option>Two</option>
+                                <option>Three</option>
+                            </select>
+                            <select class="form-select">
+                                <option>Select a Type</option>
+                                <option>One</option>
+                                <option>Two</option>
+                                <option>Three</option>
+                            </select>
+                            <select class="form-select">
+                                <option>Select a Status</option>
+                                <option>One</option>
+                                <option>Two</option>
+                                <option>Three</option>
+                            </select>
+                            <select class="form-select">
+                                <option>Select a Sales Person</option>
+                                <option>One</option>
+                                <option>Two</option>
+                                <option>Three</option>
+                            </select>
+                            <div class="hstack gap-2">
+                                <input type="checkbox" class="form-check-input" />
+                                <label>Expired</label>
+                            </div>
+                            <div>
+                                <button class="btn border-0 bg-secondary bg-opacity-25">
+                                    Export
+                                </button>
+                                <button class="btn text-white bg-primary border-0">
+                                    Primary
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col card border-1 bg-secondary bg-opacity-10 d-flex justify-content-center align-items-center">
+                        <h3 class="text-secondary opacity-50">No Leads To Map</h3>
+                    </div>
+                </div>
+                <div class="row m-0 p-0  mt-4 ps-4 border border-1">
+                    <div class="col d-flex border border-1 p-2 bg-secondary bg-opacity-10">
+                        <div class="hstack gap-3">
+                            <span class="bg-secondary bg-opacity-25 text-white py-1 px-2 rounded-3">4</span>
+                            <span>Business</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 p-0  mt-4 ps-4 border border-1">
+                    <div class="col d-flex justify-content-center border border-1 p-2 bg-secondary bg-opacity-10">
+                        <div class="hstack gap-3">
+                            <span class="bg-secondary bg-opacity-25 text-white py-1 px-2 rounded-3">1</span>
+                            <span>Quote</span>
+                        </div>
+                    </div>
+                    <div class="col d-flex justify-content-center border border-1 p-2 bg-secondary bg-opacity-10">
+                        <div class="hstack gap-3">
+                            <span class="bg-secondary bg-opacity-25 text-white py-1 px-2 rounded-3">0</span>
+                            <span>Follow Up</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-4 p-3">
+                    <table class="table table-responsive table-bordered" id="table">
+                        <thead class="bg-secondary bg-opacity-10">
+                            <tr>
+                                <th scope="col">Project Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Added</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Assignee</th>
+                                <th scope="col">Bid Date</th>
+                                <th scope="col">operation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            @foreach (var user in Model.Leads)
+                            {
+                                <tr>
+                                    <td class="">@user.ProjectName</td>
+                                    <td class="">@user.Status</td>
+                                    <td class="">@user.Added</td>
+
+                                    @if (user.Type)
+                                    {
+                                        <td class="">Bussiness</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="">Personal </td>
+                                    }
+
+                                    <td class="">@user.Contact</td>
+                                    <td class="">@user.Action</td>
+                                    <td class="">@user.Assignee</td>
+                                    <td class="">@user.BidDate</td>
+                                    <td class="hstack gap-2">
+                                        @*Update model*@
+                                        <a asp-page="/Home/EditLead" asp-route-id="@user.Id">
+                                            <iconify-icon icon="bxs:edit" width="1.6em" height="1.6em" style="color: dodgerblue"></iconify-icon>
+                                        </a>
+
+                                        @*Delete Model*@
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#DeleteModal-@user.Id">
+                                            <iconify-icon icon="material-symbols:delete" width="1.6em" height="1.6em" style="color: #d60000"></iconify-icon>
+                                        </a>
+                                        <div class="modal fade" id="DeleteModal-@user.Id" tabindex="-1" aria-labelledby="DeleteModalLabel-@user.Id" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header justify-content-center">
+                                                        <h3 class="modal-title">Delete Lead</h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-center">Are you sure you want to delete the User <strong>"@user.ProjectName"</strong>?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <a class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@user.Id"> <i class="bi bi-trash-fill"></i> Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @*Download CSV File*@
+                                        <a asp-controller="Home" asp-action="DownloadCsv">
+                                            <iconify-icon icon="fa-solid:download" width="1.4em" height="1.4em" style="color:lightslategrey"></iconify-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="position-sticky bottom-0 bg-white text-center text-secondary" style="font-size:14px">
+                <hr />
+                <div class="py-2">&copy; FieldGroove, LLC 2024, All Rights Reserved. </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('.table').DataTable({
+            "pageLength": 5,
+            "lengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+            "columnDefs": [
+                { "orderable": false, "targets": [8] },
+                { "searchable": false, "targets": [] }
+            ],
+            "language": {
+                "search": "Search :",
+                "searchPlaceholder": 'Search records...',
+                "lengthMenu": 'Show _MENU_ Entries'
+            },
+        });
+    </script>
+}

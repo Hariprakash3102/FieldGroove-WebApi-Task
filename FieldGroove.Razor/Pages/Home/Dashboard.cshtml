@@ -1,0 +1,130 @@
+﻿@page
+@model FieldGroove.Razor.Pages.Home.DashboardModel
+@{
+}
+@using FieldGroove.Razor.Constants
+<head>
+    <style>
+        .vr {
+            color: white;
+            opacity: 1;
+        }
+    </style>
+</head>
+<div class="min-vh-100 d-flex flex-column">
+    <div class="d-flex justify-content-between sticky-top" style="background-color:#6389FB">
+        <div>
+            <ul class="hstack list-unstyled m-0">
+                <li class="py-1">
+                    <a class="btn"><span class="fw-bold text-white">FIELD</span> <span class="text-white fw-light opacity-50">GROOVE</span></a>
+                </li>
+                <li class="vr"></li>
+                <li><a asp-page="/Home/Leads" class="btn text-white">Leads</a></li>
+                <li class="vr"></li>
+                <li><a class="btn text-white">Opportunities</a></li>
+                <li class="vr"></li>
+                <li><a class="btn text-white">Jobs</a></li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Accounting
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Customers
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Inventory
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+                <li>
+                    <button class="btn text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dispatcher
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">flooring</a></li>
+                        <li><a class="dropdown-item" href="#">roofing</a></li>
+                        <li><a class="dropdown-item" href="#">drywall</a></li>
+                        <li><a class="dropdown-item" href="#">insulation</a></li>
+                    </ul>
+                </li>
+                <li class="vr"></li>
+            </ul>
+        </div>
+        <div class="hstack gap-2 px-3">
+            <div class="d-flex align-items-center bg-white rounded-pill px-2 py-1">
+                <iconify-icon icon="fe:search" width="1.2em" height="1.2em"></iconify-icon>
+                <input type="search" placeholder="Search anything..." class="border-0 bg-transparent ps-1" style="font-size:14px" />
+            </div>
+            <div class="hstack gap-2">
+                <iconify-icon icon="gg:profile" width="1.5em" height="1.5em"></iconify-icon>
+                <p class="m-0 text-white">@ViewBag.Username</p>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0 flex-fill">
+        <div class="col-1 p-0 m-0" style="font-size:12px;background-color:#E8E8E8;width:7.2%;">
+            <div class="d-flex flex-column align-items-center mt-4">
+                <iconify-icon icon="pajamas:task-done" style="color: gray;" width="40" height="40"></iconify-icon>
+                <span class="side-bar-font my-1">Tasks</span>
+            </div>
+            <div class="d-flex flex-column align-items-center mt-4">
+                <iconify-icon icon="uil:calender" style="color: gray;" width="40" height="40"></iconify-icon>
+                <span class="side-bar-font my-1">Calender</span>
+            </div>
+            <div class="d-flex flex-column align-items-center mt-4">
+                <iconify-icon icon="mdi:chart-bar" style="color: gray;" width="40" height="40"></iconify-icon>
+                <span class="side-bar-font my-1">Reports</span>
+            </div>
+            <div class="d-flex flex-column align-items-center mt-4">
+                <iconify-icon icon="fa-solid:users" style="color: gray;" width="40" height="40"></iconify-icon>
+                <span class="side-bar-font my-1">Users</span>
+            </div>
+            <div class="d-flex flex-column align-items-center mt-4">
+                <iconify-icon icon="lets-icons:setting-fill" style="color: gray;" width="40" height="40"></iconify-icon>
+                <span class="side-bar-font my-1">Settings</span>
+            </div>
+            <div class="d-flex flex-column align-items-center mt-4">
+                <iconify-icon icon="ph:question-fill" style="color: gray;" width="40" height="40"></iconify-icon>
+                <span class="side-bar-font my-1">Supports</span>
+            </div>
+            <div class="d-flex flex-column align-items-center mt-4">
+                <iconify-icon icon="bi:speedometer2" style="color: gray;" width="40" height="40"></iconify-icon>
+                <span class="side-bar-font my-1">Super Admin</span>
+            </div>
+        </div>
+        <div class="col p-0 m-0">
+            <div class="d-flex justify-content-between bg-secondary bg-opacity-10 px-4 py-4">
+                <div><h2>Dashboard</h2></div>
+                <div class="hstack gap-3">
+                    <button class="border-0 rounded-2 px-3 py-2 text-white" style="background-color:limegreen">Start New Opportunity</button>
+                    <a asp-page="/Home/CreateLead" class="btn border-0  rounded-2 px-3 py-2 text-white" style="background-color:limegreen">Add New Lead</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
