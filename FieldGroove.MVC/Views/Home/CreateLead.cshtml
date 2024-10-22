@@ -156,6 +156,7 @@
                                     <div class="col-2">
                                         <input type="checkbox" asp-for="@Model.Type" class="form-check-input shadow-none" />
                                         <label asp-for="@Model.Type">Business Account</label>
+                                        <span asp-validation-for="@Model.Type" class="text-danger" />
                                     </div>
                                     <div class="col-4"></div>
                                     <div class="col-2">
@@ -175,6 +176,7 @@
                                             <option>Contacted</option>
                                             <option>Not Contacted</option>
                                         </select>
+                                        <span asp-validation-for="@Model.Status" class="text-danger" />
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
@@ -195,6 +197,7 @@
                                     </div>
                                     <div class="col-3">
                                         <input asp-for="@Model.ProjectName" type="text" class="w-100 py-2 form-control shadow-none border-black "  />
+                                        <span asp-validation-for="@Model.ProjectName" class="text-danger" />
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
@@ -260,6 +263,7 @@
                                                     </td>
                                                     <td style="width:20%;">
                                                         <input asp-for="@Model.Contact" type="number" class="form-control shadow-none" />
+                                                        <span asp-validation-for="@Model.Contact" class="text-danger" />
                                                     </td>
                                                     <td style="width:20%;">
                                                         <input type="text" class="form-control shadow-none" disabled />
@@ -328,6 +332,7 @@
                                     <div class="col-3 bg-white">
                                         <div class="px-0 border border-0">
                                             <input asp-for="@Model.BidDate" type="datetime-local" value="2024-10-16T12:00"/>
+                                            <span asp-validation-for="@Model.BidDate" class="text-danger" />
                                         </div>
                                     </div>
                                 </div>
@@ -342,6 +347,7 @@
                                             <option>Boopathi</option>
                                             <option>Kesavan</option>
                                         </select>
+                                        <span asp-validation-for="@Model.Assignee" class="text-danger" />
                                     </div>
                                     <div class="col-2 d-flex align-items-baseline p-0 m-0">
                                         <input type="checkbox" class="form-check-input mx-2 shadow-none" />
@@ -357,6 +363,7 @@
                                             <option>Quote</option>
                                             <option>Not Quote</option>
                                         </select>
+                                        <span asp-validation-for="@Model.Action" class="text-danger" />
                                     </div>
                                     <div class="col-3 d-flex align-items-baseline p-0 m-0">
                                         <input type="checkbox" class="form-check-input mx-2 shadow-none" />
