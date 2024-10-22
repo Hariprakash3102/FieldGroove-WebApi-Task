@@ -5,6 +5,10 @@
             color: white;
             opacity: 1;
         }
+
+        .error-style{
+            font-size: 14px;
+        }
     </style>
 </head>
 @*Create Leads Page*@
@@ -204,7 +208,7 @@
                                     </div>
                                     <div class="col-3">
                                         <input asp-for="@Model.ProjectName" type="text" class="w-100 py-2 form-control shadow-none border-black " />
-                                        <span asp-validation-for="@Model.ProjectName" class="text-danger" />
+                                        <span asp-validation-for="@Model.ProjectName" class="text-danger error-style" />
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
@@ -270,7 +274,7 @@
                                                     </td>
                                                     <td style="width:20%;">
                                                         <input asp-for="@Model.Contact" type="number" class="form-control shadow-none" />
-                                                        <span asp-validation-for="@Model.Contact" class="text-danger" />
+                                                        <span asp-validation-for="@Model.Contact" class="text-danger error-style" />
                                                     </td>
                                                     <td style="width:20%;">
                                                         <input type="text" class="form-control shadow-none" disabled />
@@ -425,3 +429,8 @@
         </div>
     </div> 
 </div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}

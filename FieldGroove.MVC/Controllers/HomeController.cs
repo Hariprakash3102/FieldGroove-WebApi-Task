@@ -53,7 +53,7 @@ namespace FieldGroove.MVC.Controllers
                     return RedirectToAction("Leads");
                 }
             }
-            return View();
+            return View(model);
         }
 
 		// Dashboard Action for HttpGet in MVC Controller

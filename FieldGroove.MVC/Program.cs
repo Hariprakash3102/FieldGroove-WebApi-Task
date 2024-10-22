@@ -1,4 +1,4 @@
-using Field_Groove.Domain.Validation;
+using FieldGroove.MVC.Validation;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 

@@ -8,8 +8,7 @@ namespace FieldGroove.MVC.Validation
 		public CreateLeadValidation() 
 		{
 			RuleFor(x => x.ProjectName)
-			   .NotEmpty().WithMessage("Project name is required.")
-			   .Length(3, 100).WithMessage("Project name must be between 3 and 100 characters.");
+			   .NotEmpty().WithMessage("Project name is required.");
 
 			RuleFor(x => x.Contact)
 				.NotEmpty().WithMessage("Phone Number is required")
