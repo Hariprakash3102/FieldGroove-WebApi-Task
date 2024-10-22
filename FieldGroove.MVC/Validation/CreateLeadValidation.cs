@@ -1,7 +1,7 @@
-﻿using FieldGroove.Api.Models;
+﻿using FieldGroove.MVC.Models;
 using FluentValidation;
 
-namespace FieldGroove.Api.Validation
+namespace FieldGroove.MVC.Validation
 {
 	public class CreateLeadValidation : AbstractValidator<LeadsModel>
 	{
