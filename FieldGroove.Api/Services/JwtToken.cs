@@ -13,6 +13,8 @@ namespace FieldGroove.Api.Services
 			this.configuration = configuration;
 		}
 
+		//Generate JWT Token
+
 		public string GenerateJwtToken(string username)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();

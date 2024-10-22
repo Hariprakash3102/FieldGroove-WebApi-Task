@@ -20,6 +20,8 @@ namespace FieldGroove.Api.Controllers
 			this.dbcontext = dbcontext;
 		}
 
+		//Leads Action in Api Controller
+
 		[HttpGet("Leads")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IActionResult> Leads()
@@ -36,6 +38,8 @@ namespace FieldGroove.Api.Controllers
 			return Ok(User);
 		}
 
+		//CreateLead Action in Api Controller
+
 		[HttpPost("CreateLead")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -50,6 +54,7 @@ namespace FieldGroove.Api.Controllers
 			return BadRequest();
 		}
 
+		//EditLead Action in Api Controller
 
 		[HttpPut("EditLead")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
@@ -70,6 +75,8 @@ namespace FieldGroove.Api.Controllers
 			return BadRequest();
 		}
 
+		// Delete Action in Api Controller 
+
 		[HttpDelete("Delete/{id:int}")]
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -82,6 +89,8 @@ namespace FieldGroove.Api.Controllers
 			}
 			return NotFound();
 		}
+
+		// Download the CSV file 
 
 		[HttpGet("download-csv")]
 		public async Task<IActionResult> DownloadCsv()

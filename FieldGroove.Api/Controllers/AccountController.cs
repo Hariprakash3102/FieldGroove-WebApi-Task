@@ -17,6 +17,8 @@ namespace FieldGroove.Api.Controllers
 			this.dbcontext = dbcontext;
 		}
 
+		// Login Action in Api Controller
+
 		[HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -32,6 +34,8 @@ namespace FieldGroove.Api.Controllers
             }
             return NotFound();
         }
+
+		// Register Action in Api Controller
 
 		[HttpPost("Register")]
 		[ProducesResponseType(StatusCodes.Status200OK)]

@@ -11,19 +11,25 @@ namespace FieldGroove.MVC.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet]
+		// Index Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public IActionResult Index()
         {
             return RedirectToAction("Login");
         }
 
-        [HttpGet]
+		// Login Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+		// Login Action for HttpPost in MVC Controller
+
+		[HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -36,13 +42,17 @@ namespace FieldGroove.MVC.Controllers
             return View(model);
         }
 
-        [HttpGet]
+		// Register Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public IActionResult Register()
         {
             return View();
-        }
+		}
 
-        [HttpPost]
+        // Register Action for HttpPost in MVC Controller
+
+		[HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -55,7 +65,9 @@ namespace FieldGroove.MVC.Controllers
             return View(model);
         }
 
-        [HttpGet]
+		// WaitingActivation Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public IActionResult WaitingActivation()
         {
             return View();

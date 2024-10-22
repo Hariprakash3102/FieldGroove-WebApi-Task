@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FieldGroove.Api.Data
 {
+	//DbContext for Database Connection and create DB Table
 	public class ApplicationDbContext : DbContext
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }

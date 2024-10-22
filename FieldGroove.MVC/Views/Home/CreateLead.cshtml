@@ -7,7 +7,9 @@
         }
     </style>
 </head>
+@*Create Leads Page*@
 <div class="d-flex flex-column min-vh-100">
+    @* Header For Create Leads Page*@
     <div class="d-flex justify-content-between sticky-top" style="background-color:#6389FB">
         <div>
             <ul class="hstack list-unstyled m-0">
@@ -82,6 +84,7 @@
             </div>
         </div>
     </div>
+    @*Sidebar for Create Leads Page*@
     <div class="">
         <div class="row m-0 p-0 flex-fill">
             <div class="col-1 p-0 m-0" style="font-size:12px;background-color:#E8E8E8;width:7.2%;">
@@ -117,20 +120,22 @@
                 </div>
 
             </div>
-
+            @*Main Content for Create Leads Page*@
             <div class="col p-0 border">
                 <div class="d-flex align-items-center ps-3 border-bottom" style="height:100px;">
                     <h1>Create Lead</h1>
                 </div>
+                @*Breadcrumb for Create Leads Page*@
                 <div class="ps-3 border-bottom pt-2">
                     <nav>
                         <ul class="hstack list-unstyled">
                             <li class="breadcrumb-item"><a class="fs-5" asp-controller="Home" asp-action="Leads">Leads</a></li>
-                            <li class="d-flex align-items-center"><iconify-icon icon="fe:arrow-right" width="1.3em" height="1.3em"  style="color: black"></iconify-icon></li>
+                            <li class="d-flex align-items-center"><iconify-icon icon="fe:arrow-right" width="1.3em" height="1.3em" style="color: black"></iconify-icon></li>
                             <li class="fs-5">Create Lead</li>
                         </ul>
                     </nav>
                 </div>
+                @*Tabs for Create Leads Page*@
                 <div class="px-3 pt-3 mb-3">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -146,8 +151,10 @@
                             <button class="nav-link" id="Photos-tab" data-bs-toggle="tab" data-bs-target="#Photos" type="button" role="tab" aria-controls="Photos" aria-selected="false">Photos(0)</button>
                         </li>
                     </ul>
+                    @*Tab-1 Lead Information for Create Leads Page *@
                     <div class="tab-content border" id="myTabContent">
                         <div class="tab-pane fade show active " id="Lead_Information" role="tabpanel" aria-labelledby="Lead_Information-tab">
+                            @*Create Lead Form for Create Leads Page*@
                             <form method="post" class="vstack gap-4 mt-4">
                                 <div class="row m-0 p-0">
                                     <div class="col-2">
@@ -160,7 +167,7 @@
                                     </div>
                                     <div class="col-4"></div>
                                     <div class="col-2">
-                                       Date Created
+                                        Date Created
                                     </div>
                                     <div class="col-2">
                                         <p>@DateTime.Now</p>
@@ -196,7 +203,7 @@
                                         Project Name
                                     </div>
                                     <div class="col-3">
-                                        <input asp-for="@Model.ProjectName" type="text" class="w-100 py-2 form-control shadow-none border-black "  />
+                                        <input asp-for="@Model.ProjectName" type="text" class="w-100 py-2 form-control shadow-none border-black " />
                                         <span asp-validation-for="@Model.ProjectName" class="text-danger" />
                                     </div>
                                 </div>
@@ -217,7 +224,7 @@
                                             </thead>
                                             <tboady>
                                                 <tr>
-                                                    <td style="width:20%;" >
+                                                    <td style="width:20%;">
                                                         <input type="text" placeholder="Company Name" class="form-control shadow-none" disabled />
                                                     </td>
                                                     <td style="width:20%;">
@@ -226,7 +233,7 @@
                                                     <td style="width:20%;">
                                                         <input type="text" placeholder="Last Name" class="form-control shadow-none" disabled />
                                                     </td>
-                                                    <td  style="width:20%;">
+                                                    <td style="width:20%;">
                                                         <select class="rounded-3 w-100">
                                                             <option>Select a lead source</option>
                                                         </select>
@@ -331,7 +338,7 @@
                                     </div>
                                     <div class="col-3 bg-white">
                                         <div class="px-0 border border-0">
-                                            <input asp-for="@Model.BidDate" type="datetime-local" value="2024-10-16T12:00"/>
+                                            <input asp-for="@Model.BidDate" type="datetime-local" value="2024-10-16T12:00" />
                                             <span asp-validation-for="@Model.BidDate" class="text-danger" />
                                         </div>
                                     </div>
@@ -393,13 +400,11 @@
                         <div class="tab-pane fade p-5 text-center" id="Contacts" role="tabpanel" aria-labelledby="Contacts-tab">... Contact Details </div>
                         <div class="tab-pane fade p-5 text-center" id="Document" role="tabpanel" aria-labelledby="Document-tab">... Documents Details </div>
                         <div class="tab-pane fade p-5 text-center" id="Photos" role="tabpanel" aria-labelledby="Photos-tab">... Photo Details </div>
-
                     </div>
-
                 </div>
-
             </div>
-            <div class="col-3 d-flex flex-column" >
+            @*Side Content for Create Leads page*@
+            <div class="col-3 d-flex flex-column">
                 <div class="p-3 border-1 flex-fill mt-3" style="border:dashed;">
                     <div class="row m-0 p-0 border ">
                         <div class="col-5 border-end py-3">
@@ -413,12 +418,10 @@
                         </div>
                     </div>
                     <div>
-                    <div class=" mt-4 border-end border-1 " style="border:dashed;" />
-                </div>  
+                        <div class=" mt-4 border-end border-1 " style="border:dashed;" />
+                    </div>
                 </div>
-                
             </div>
         </div>
-    </div>
-
+    </div> 
 </div>

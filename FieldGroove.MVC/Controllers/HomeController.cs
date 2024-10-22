@@ -19,7 +19,9 @@ namespace FieldGroove.MVC.Controllers
             this.httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet]
+		// Leads Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public async Task<IActionResult> Leads()
         {
             var client = httpClientFactory.CreateClient();
@@ -27,13 +29,17 @@ namespace FieldGroove.MVC.Controllers
             return View(response);
         }
 
-        [HttpGet]
+		// CreateLead Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public IActionResult CreateLead()
         {
             return View();
         }
 
-        [HttpPost]
+		// CreateLead Action for HttpPost in MVC Controller
+
+		[HttpPost]
         public async Task<IActionResult> CreateLead(LeadsModel model)
         {
             if (ModelState.IsValid)
@@ -50,13 +56,17 @@ namespace FieldGroove.MVC.Controllers
             return View();
         }
 
-        [HttpGet]
+		// Dashboard Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public IActionResult Dashboard()
         {
             return View();
         }
 
-        [HttpGet]
+		// EditLead Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public async Task<IActionResult> EditLead(int id)
         {
             var client = httpClientFactory.CreateClient();
@@ -64,7 +74,9 @@ namespace FieldGroove.MVC.Controllers
             return View(response);
         }
 
-        [HttpPost]
+		// EditLead Action for HttpPost in MVC Controller
+
+		[HttpPost]
         public async Task<IActionResult> EditLead(LeadsModel model)
         {
             if (ModelState.IsValid)
@@ -76,7 +88,9 @@ namespace FieldGroove.MVC.Controllers
             return View();
         }
 
-        [HttpGet]
+		// DeleteLead Action for HttpGet in MVC Controller
+
+		[HttpGet]
         public async Task<IActionResult> DeleteLead(int id)
         {
             var client = httpClientFactory.CreateClient();
@@ -84,7 +98,9 @@ namespace FieldGroove.MVC.Controllers
             return RedirectToAction("Leads");
         }
 
-        [HttpGet]
+		// Download the Csv file Action in MVC Controller
+
+		[HttpGet]
         public async Task<IActionResult> DownloadCsv()
         {
             var client = httpClientFactory.CreateClient();

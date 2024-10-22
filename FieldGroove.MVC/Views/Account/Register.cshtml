@@ -6,7 +6,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100&display=swap" rel="stylesheet">
 </head>
+
+@*Register Page*@
+
 <div>
+	@*Header for Register Page*@
 	<div class="container d-flex justify-content-between pt-4">
 		<div>
 			<a asp-controller="Account" asp-action="Dashboard"><img src="/images/logo-fieldgroove-blue.svg" alt="Feild_groove" width="270" /></a>
@@ -32,12 +36,16 @@
 			</ul>
 		</div>
 	</div>
+	@*Main Content for Register Page*@
 	<div class="BgImg">
 		<h1 class="display-5 text-center BlueColor roboto-thin mt-5">Try FeildGroove Free For 7 Days!</h1>
 		<div class="container d-flex justify-content-between p-0 containerStyle  mt-5">
+			@*Register Form for Register Page*@
 			<form method="post" class="Registerformstyle rounded-2" id="myForm">
+				@*carousel for Register Form for Register Page*@
 				<div class="carousel slide" id="RegisterFormCarousel" data-bs-interval="false">
 					<div class="carousel-inner">
+						@*carousel item-1 for Register Form for Register Page*@
 						<div class="carousel-item active" style=" transition: transform 0.3s none">
 							<div class="vstack gap-3 p-5">
 								<h5>ACCOUNT INFO</h5>
@@ -86,6 +94,7 @@
 
 							</div>
 						</div>
+						@*carousel item-2 for Register Form for Register Page*@
 						<div class="carousel-item" style="height:862px">
 							<div class="vstack gap-3 p-5">
 								<h5>
@@ -126,6 +135,9 @@
 					</div>
 				</div>
 			</form>
+
+			@*end Register Form for Register Page*@
+
 			<div class="w-50 p-5 rounded-2 flex-fill">
 				<div asp-validation-summary="All" class="ValidationList text-danger" style="font-size:14px">
 					@if (ViewBag.ErrorMessage is not null)
@@ -157,6 +169,7 @@
 			</div>
 		</div>
 	</div>
+	@*FAQ for the Register Page*@
 	<div class="container containerStyle bg-white mt-5 pt-5">
 		<div class="text-center">
 			<h2 class="BlueColor">Frequently Asked Questions</h2>
@@ -233,7 +246,7 @@
 				<li><a asp-controller="Account" asp-action="Rgister">@ApplicationConstants.Item6</a></li>
 			</ul>
 		</div>
-
+		@*Footer for Register Page*@
 		<div class="LoginFooterBg">
 			<div class="container LoginFooter">
 				<div class="mb-2">
