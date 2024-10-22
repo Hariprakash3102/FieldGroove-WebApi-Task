@@ -6,7 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("FieldGrooveApi", options =>
+{
+	options.BaseAddress = new Uri("https://localhost:7222/api/");
+});
 
 builder.Services.AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters()

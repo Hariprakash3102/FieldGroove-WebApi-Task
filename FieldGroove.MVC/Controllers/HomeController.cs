@@ -24,8 +24,8 @@ namespace FieldGroove.MVC.Controllers
 		[HttpGet]
         public async Task<IActionResult> Leads()
         {
-            var client = httpClientFactory.CreateClient();
-            var response = await client.GetFromJsonAsync<List<LeadsModel>>("https://localhost:7222/api/Home/Leads");
+            var client = httpClientFactory.CreateClient("FieldGrooveApi");
+            var response = await client.GetFromJsonAsync<List<LeadsModel>>("Home/Leads");
             return View(response);
         }
 
@@ -44,9 +44,9 @@ namespace FieldGroove.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var client = httpClientFactory.CreateClient();
+                var client = httpClientFactory.CreateClient("FieldGrooveApi");
 
-                var response = await client.PostAsJsonAsync("https://localhost:7222/api/Home/CreateLead", model);
+                var response = await client.PostAsJsonAsync("Home/CreateLead", model);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -69,8 +69,8 @@ namespace FieldGroove.MVC.Controllers
 		[HttpGet]
         public async Task<IActionResult> EditLead(int id)
         {
-            var client = httpClientFactory.CreateClient();
-            var response = await client.GetFromJsonAsync<LeadsModel>($"https://localhost:7222/api/Home/Leads/{id}");
+            var client = httpClientFactory.CreateClient("FieldGrooveApi");
+            var response = await client.GetFromJsonAsync<LeadsModel>($"Home/Leads/{id}");
             return View(response);
         }
 
@@ -81,8 +81,8 @@ namespace FieldGroove.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var client = httpClientFactory.CreateClient();
-                await client.PutAsJsonAsync<LeadsModel>("https://localhost:7222/api/Home/EditLead", model);
+                var client = httpClientFactory.CreateClient("FieldGrooveApi");
+                await client.PutAsJsonAsync<LeadsModel>("Home/EditLead", model);
                 return RedirectToAction("Leads");
             }
             return View();
@@ -93,8 +93,8 @@ namespace FieldGroove.MVC.Controllers
 		[HttpGet]
         public async Task<IActionResult> DeleteLead(int id)
         {
-            var client = httpClientFactory.CreateClient();
-            await client.DeleteAsync($"https://localhost:7222/api/Home/Delete/{id}");
+            var client = httpClientFactory.CreateClient("FieldGrooveApi");
+            await client.DeleteAsync($"Home/Delete/{id}");
             return RedirectToAction("Leads");
         }
 
@@ -103,8 +103,8 @@ namespace FieldGroove.MVC.Controllers
 		[HttpGet]
         public async Task<IActionResult> DownloadCsv()
         {
-            var client = httpClientFactory.CreateClient();
-            var records = await client.GetFromJsonAsync<List<LeadsModel>>("https://localhost:7222/api/Home/Leads");
+            var client = httpClientFactory.CreateClient("FieldGrooveApi");
+            var records = await client.GetFromJsonAsync<List<LeadsModel>>("Home/Leads");
 
             var csv = new StringBuilder();
             csv.AppendLine("ID,Project Name,Status,Added,Type,Contact,Action,Assignee,Bid Date");
