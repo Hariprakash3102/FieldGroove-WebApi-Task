@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Text;
+using System.Collections;
+using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FieldGroove.Api.Controllers
 {
@@ -27,7 +31,14 @@ namespace FieldGroove.Api.Controllers
 		public async Task<IActionResult> Leads()
 		{
 			var User = await dbcontext.Leads.ToListAsync();
-			return Ok(User);
+            var response = new ApiResponse<List<LeadsModel>>
+            {
+                Data = User,
+                TotalCount = User.Count,
+                Status = "success",
+                Timestamp = DateTime.UtcNow.ToString("o")
+            };
+            return Ok(response);
 		}
 
 		[HttpGet("Leads/{id:int}")]
@@ -35,7 +46,7 @@ namespace FieldGroove.Api.Controllers
 		public async Task<IActionResult> Leads(int id)
 		{
 			var User = await dbcontext.Leads.FindAsync(id);
-			return Ok(User);
+            return Ok(User);
 		}
 
 		//CreateLead Action in Api Controller
