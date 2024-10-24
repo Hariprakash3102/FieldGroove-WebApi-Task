@@ -1,6 +1,6 @@
-﻿namespace FieldGroove.Api.Models
+﻿namespace FieldGroove.Api.ApiResponse
 {
-    public class ApiResponse<T>
+    public class LeadsApiResponse<T>
     {
         public T Data { get; set; }
         public int TotalCount { get; set; }

@@ -2,6 +2,8 @@
 using FieldGroove.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using FieldGroove.Api.Services;
+using FieldGroove.Api.ApiResponse;
+using Microsoft.EntityFrameworkCore;
 
 namespace FieldGroove.Api.Controllers
 {
@@ -26,9 +28,18 @@ namespace FieldGroove.Api.Controllers
 		{
             if (ModelState.IsValid)
             {
-                var response = await dbcontext.UserData.FindAsync(entity.Email);
-                if (response is not null)
+				var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x=>x.Email==entity.Email!);
+                if (isUser)
                 {
+					var JwtToken = new JwtToken(configuration);
+
+					var response = new LoginApiResponse<LoginModel>
+					{
+						Data = entity,
+						Token = JwtToken.GenerateJwtToken(entity.Email!),
+                        Status = "OK",
+						Timestamp = DateTime.Now
+					};
                     return Ok(response);
                 }
             }

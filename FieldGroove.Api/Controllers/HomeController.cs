@@ -1,14 +1,9 @@
 ﻿using FieldGroove.Api.Data;
 using FieldGroove.Api.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using System.Text;
-using System.Collections;
-using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Internal;
+using FieldGroove.Api.ApiResponse;
 
 namespace FieldGroove.Api.Controllers
 {
@@ -31,7 +26,7 @@ namespace FieldGroove.Api.Controllers
 		public async Task<IActionResult> Leads()
 		{
 			var User = await dbcontext.Leads.ToListAsync();
-            var response = new ApiResponse<List<LeadsModel>>
+            var response = new LeadsApiResponse<List<LeadsModel>>
             {
                 Data = User,
                 TotalCount = User.Count,
