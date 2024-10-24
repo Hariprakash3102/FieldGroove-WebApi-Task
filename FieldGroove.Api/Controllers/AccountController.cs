@@ -33,9 +33,9 @@ namespace FieldGroove.Api.Controllers
                 {
 					var JwtToken = new JwtToken(configuration);
 
-					var response = new LoginApiResponse<LoginModel>
+					var response = new LoginApiResponse
 					{
-						Data = entity,
+						User = entity.Email!,
 						Token = JwtToken.GenerateJwtToken(entity.Email!),
                         Status = "OK",
 						Timestamp = DateTime.Now
@@ -51,14 +51,18 @@ namespace FieldGroove.Api.Controllers
 		[HttpPost("Register")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> Register([FromBody] RegisterModel entity)
+        public async Task<IActionResult> Register([FromBody] RegisterModel entity)
 		{
 			if (ModelState.IsValid)
 			{
-				await dbcontext.UserData.AddAsync(entity);
-				await dbcontext.SaveChangesAsync();
-				return Ok(entity);
-
+                var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
+				if (!isUser)
+				{
+					await dbcontext.UserData.AddAsync(entity);
+					await dbcontext.SaveChangesAsync();
+					return Ok();
+				}
+				return BadRequest(new { error = "User already registered" });
 			}
 			return BadRequest();
 		}

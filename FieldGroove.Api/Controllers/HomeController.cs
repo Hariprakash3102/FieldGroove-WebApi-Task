@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using FieldGroove.Api.ApiResponse;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FieldGroove.Api.Controllers
 {
+	[Authorize]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class HomeController : ControllerBase
