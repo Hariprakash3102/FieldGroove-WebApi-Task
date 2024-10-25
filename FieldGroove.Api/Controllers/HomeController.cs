@@ -28,7 +28,7 @@ namespace FieldGroove.Api.Controllers
 		public async Task<IActionResult> Leads()
 		{
 			var User = await dbcontext.Leads.ToListAsync();
-            var response = new LeadsApiResponse<List<LeadsModel>>
+            var response = new 
             {
                 Data = User,
                 TotalCount = User.Count,

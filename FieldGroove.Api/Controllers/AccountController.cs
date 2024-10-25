@@ -33,7 +33,7 @@ namespace FieldGroove.Api.Controllers
                 {
 					var JwtToken = new JwtToken(configuration);
 
-					var response = new LoginApiResponse
+					var response = new
 					{
 						User = entity.Email!,
 						Token = JwtToken.GenerateJwtToken(entity.Email!),
