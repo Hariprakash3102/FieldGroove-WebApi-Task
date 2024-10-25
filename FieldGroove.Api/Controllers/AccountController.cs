@@ -2,7 +2,6 @@
 using FieldGroove.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using FieldGroove.Api.Services;
-using FieldGroove.Api.ApiResponse;
 using Microsoft.EntityFrameworkCore;
 
 namespace FieldGroove.Api.Controllers
