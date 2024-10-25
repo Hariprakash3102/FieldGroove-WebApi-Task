@@ -85,8 +85,8 @@ namespace FieldGroove.Api.Controllers
 
 		// Delete Action in Api Controller 
 
-		[HttpDelete("Delete/{id:int}")]
-		public async Task<IActionResult> Delete(int id)
+		[HttpDelete("DeleteLead/{id:int}")]
+		public async Task<IActionResult> DeleteLead(int id)
 		{
 			var response = await dbcontext.Leads.FindAsync(id);
 			if (response is not null)
