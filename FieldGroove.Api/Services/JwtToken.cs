@@ -23,7 +23,7 @@ namespace FieldGroove.Api.Services
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) }),
-				Expires = DateTime.Now.AddMinutes(2),
+				Expires = DateTime.Now.AddMinutes(60),
 				Issuer = configuration["Jwt:Issuer"],
 				Audience = configuration["Jwt:Audience"],
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
