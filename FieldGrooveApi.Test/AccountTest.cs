@@ -112,8 +112,7 @@ namespace FieldGrooveApi.Test
 
             // Act
             var result = await controller.Register(RegisterData);
-
-            // Assert
+                        // Assert
             Assert.IsType<BadRequestObjectResult>(result);
 
         }
