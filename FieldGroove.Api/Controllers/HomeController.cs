@@ -12,11 +12,9 @@ namespace FieldGroove.Api.Controllers
 	[ApiController]
 	public class HomeController : ControllerBase
 	{
-		private readonly IConfiguration configuration;
 		private readonly ApplicationDbContext dbcontext;
-		public HomeController(IConfiguration configuration, ApplicationDbContext dbcontext)
+		public HomeController(ApplicationDbContext dbcontext)
 		{
-			this.configuration = configuration;
 			this.dbcontext = dbcontext;
 		}
 
@@ -115,6 +113,5 @@ namespace FieldGroove.Api.Controllers
 			byte[] buffer = Encoding.UTF8.GetBytes(csv.ToString());
 			return File(buffer, "text/csv", "LeadsData.csv");
 		}
-
 	}
 }
