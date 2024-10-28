@@ -64,10 +64,10 @@ namespace FieldGrooveApi.Test
         [Fact]
         public async Task Register_Should_Return_Ok()
         {
-            DbContext.UserData.RemoveRange();
+            DbContext.UserData.RemoveRange(DbContext.UserData);
             var RegisterData = new RegisterModel
             {
-                Email = "test@gmail.com",
+                Email = "test1@gmail.com",
                 Password = "Test@123",
                 PasswordAgain = "Test@123",
                 CompanyName = "CIDC",
@@ -96,6 +96,7 @@ namespace FieldGrooveApi.Test
             var RegisterData = new RegisterModel
             {
                 Email = "test@gmail.com",
+                Password = "Test@123",
                 PasswordAgain = "Test@123",
                 CompanyName = "CIDC",
                 FirstName = "Nithish",
