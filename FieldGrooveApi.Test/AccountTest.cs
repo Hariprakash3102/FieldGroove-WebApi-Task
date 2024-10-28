@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.InMemory;
 using System.Security.Cryptography;
 
@@ -14,7 +13,7 @@ namespace FieldGrooveApi.Test
     public class AccountTest
     {
         private readonly Mock<IConfiguration> configuration;
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext DbContext;
         private readonly AccountController controller;
         public AccountTest()
         {
@@ -34,16 +33,16 @@ namespace FieldGrooveApi.Test
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
 
-            context = new ApplicationDbContext(options);
+            DbContext = new ApplicationDbContext(options);
 
-            controller = new AccountController(configuration.Object, context);
+            controller = new AccountController(configuration.Object, DbContext);
         }
 
         private void InitializeDataBase()
         {
-            context.UserData.RemoveRange(context.UserData);
+            DbContext.UserData.RemoveRange(DbContext.UserData);
 
-            context.UserData.Add(new RegisterModel
+            DbContext.UserData.Add(new RegisterModel
             {
                 Email = "test@gmail.com",
                 Password = "Test@123",
@@ -59,33 +58,91 @@ namespace FieldGrooveApi.Test
                 TimeZone = "Mountain timeZone",
                 Zip = "636139"
             });
-            context.SaveChanges();
+            DbContext.SaveChanges();
         }
 
         [Fact]
-        public async Task Test1Async()
+        public async Task Register_Should_Return_Ok()
         {
-            InitializeDataBase();
-
-            var loginModel = new LoginModel { Email = "test@gmail.com", Password = "Test@123" };
+            DbContext.UserData.RemoveRange();
+            var RegisterData = new RegisterModel
+            {
+                Email = "test@gmail.com",
+                Password = "Test@123",
+                PasswordAgain = "Test@123",
+                CompanyName = "CIDC",
+                FirstName = "Nithish",
+                LastName = "sakthivel",
+                Phone = 7904352633,
+                City = "salem",
+                State = "TamilNadu",
+                StreetAddress1 = "Something",
+                StreetAddress2 = "blah blah",
+                TimeZone = "Mountain timeZone",
+                Zip = "636139"
+            };
 
             // Act
-            var result = await controller.Login(loginModel);
+            var result = await controller.Register(RegisterData);
 
             // Assert
-            Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<OkResult>(result);
 
-           
         }
         [Fact]
-        public async Task Test2Async()
+        public async Task Register_Should_Return_BadRequest_with_Object()
+        {
+            InitializeDataBase();
+            var RegisterData = new RegisterModel
+            {
+                Email = "test@gmail.com",
+                PasswordAgain = "Test@123",
+                CompanyName = "CIDC",
+                FirstName = "Nithish",
+                LastName = "sakthivel",
+                Phone = 7904352633,
+                City = "salem",
+                State = "TamilNadu",
+                StreetAddress1 = "Something",
+                StreetAddress2 = "blah blah",
+                TimeZone = "Mountain timeZone",
+                Zip = "636139"
+            };
+
+            // Act
+            var result = await controller.Register(RegisterData);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Should_Return_OkObjectResult()
         {
             InitializeDataBase();
 
-            var loginModel = new LoginModel { Email = "testgmail.com", Password = "Test@123" };
+            var loginData = new LoginModel { Email = "test@gmail.com", Password = "Test@123" };
 
             // Act
-            var result = await controller.Login(loginModel);
+            var result = await controller.Login(loginData);
+
+            Console.WriteLine($"Result: {result}");
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.NotNull(okResult?.Value);
+
+        }
+        [Fact]
+        public async Task Should_Return_NotFoundResult()
+        {
+            InitializeDataBase();
+
+            var loginData = new LoginModel { Email = "testgmail.com", Password = "Test@123" };
+
+            // Act
+            var result = await controller.Login(loginData);
 
             // Assert
             Assert.IsType<NotFoundResult>(result);

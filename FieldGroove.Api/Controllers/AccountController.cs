@@ -54,7 +54,7 @@ namespace FieldGroove.Api.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-                var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
+				var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
 				if (!isUser)
 				{
 					await dbcontext.UserData.AddAsync(entity);
