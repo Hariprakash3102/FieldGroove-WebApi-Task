@@ -1,5 +1,5 @@
 using FieldGroove.Api.Data;
-using FieldGroove.MVC.Validation;
+using FieldGroove.Api.Validation;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

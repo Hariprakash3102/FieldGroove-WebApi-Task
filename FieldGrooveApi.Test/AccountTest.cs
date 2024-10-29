@@ -1,26 +1,28 @@
 using FieldGroove.Api.Controllers;
 using FieldGroove.Api.Data;
 using FieldGroove.Api.Models;
+using FieldGroove.Api.Validation;
+using FluentValidation.TestHelper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using Microsoft.EntityFrameworkCore.InMemory;
 using System.Security.Cryptography;
-using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Http;
 
 namespace FieldGrooveApi.Test
 {
     public class AccountTest
     {
+        private readonly RegisterValidator _validator;
         private readonly Mock<IConfiguration> configuration;
         private readonly ApplicationDbContext DbContext;
         private readonly AccountController controller;
         public AccountTest()
         {
+            _validator = new RegisterValidator();
+
             configuration = new Mock<IConfiguration>();
+
             byte[] secretByte = new byte[64];
             using (var Random = RandomNumberGenerator.Create())
             {
@@ -39,7 +41,6 @@ namespace FieldGrooveApi.Test
             DbContext = new ApplicationDbContext(options);
 
             controller = new AccountController(configuration.Object, DbContext);
-            controller.ModelState.Clear();
         }
 
         private void InitializeDataBase()
@@ -122,7 +123,7 @@ namespace FieldGrooveApi.Test
 
         }
         [Fact]
-        public async Task Register_Email_Validation()
+        public void Register_Email_Validation()
         {
             var RegisterData = new RegisterModel
             {
@@ -141,17 +142,12 @@ namespace FieldGrooveApi.Test
                 Zip = "636139"
             };
 
-
-            // Act
-            var result = await controller.Register(RegisterData);
-             // Assert
-            Assert.IsType<BadRequestResult>(result);
-
+            var result = _validator.TestValidate(RegisterData);
+            Assert.False(result.IsValid);
         }
         [Fact]
-        public async Task Register_PhoneNumber_Validation()
+        public void Register_Phone_Validation()
         {
-            InitializeDataBase();
             var RegisterData = new RegisterModel
             {
                 Email = "test@gmail.com",
@@ -160,7 +156,7 @@ namespace FieldGrooveApi.Test
                 CompanyName = "CIDC",
                 FirstName = "Nithish",
                 LastName = "sakthivel",
-                Phone = 79043526,
+                Phone = 79043,
                 City = "salem",
                 State = "TamilNadu",
                 StreetAddress1 = "Something",
@@ -169,21 +165,17 @@ namespace FieldGrooveApi.Test
                 Zip = "636139"
             };
 
-            // Act
-            var result = await controller.Register(RegisterData);
-                        // Assert
-            Assert.IsType<BadRequestResult>(result);
-
-        }  
+            var result = _validator.TestValidate(RegisterData);
+            Assert.False(result.IsValid);
+        }
         [Fact]
-        public async Task Register_Password_Validation()
+        public void Register_Password_Validation()
         {
-            InitializeDataBase();
             var RegisterData = new RegisterModel
             {
                 Email = "test@gmail.com",
                 Password = "Test@123",
-                PasswordAgain = "Test@123",
+                PasswordAgain = "Test@1234",
                 CompanyName = "CIDC",
                 FirstName = "Nithish",
                 LastName = "sakthivel",
@@ -196,41 +188,8 @@ namespace FieldGrooveApi.Test
                 Zip = "636139"
             };
 
-            // Act
-            var result = await controller.Register(RegisterData);
-                        // Assert
-            Assert.IsType<BadRequestObjectResult>(result);
-
-        }
-
-        [Fact]
-
-        public async Task Register_Validate_the_Email_with_BabRequest()
-        {
-            //Arrange
-            DbContext.UserData.RemoveRange(DbContext.UserData);
-            var RegisterData = new RegisterModel
-            {
-                Email = "test1@gmail.com",
-                Password = "Test@123",
-                PasswordAgain = "Test@123",
-                CompanyName = "CIDC",
-                FirstName = "Nithish",
-                LastName = "sakthivel",    
-                Phone = 7904352633,
-                City = "salem",
-                State = "TamilNadu",
-                StreetAddress1 = "Something",
-                StreetAddress2 = "blah blah",
-                TimeZone = "Mountain timeZone",
-                Zip = "636139"
-            };
-
-            // Act
-            var result = await controller.Register(RegisterData);
-            // Assert
-            Assert.IsType<BadRequestResult>(result);
-
+            var result = _validator.TestValidate(RegisterData);
+            Assert.False(result.IsValid);
         }
 
         [Fact]

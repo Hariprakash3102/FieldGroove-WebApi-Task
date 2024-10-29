@@ -1,7 +1,7 @@
 ﻿using FieldGroove.Api.Models;
 using FluentValidation;
 
-namespace FieldGroove.MVC.Validation
+namespace FieldGroove.Api.Validation
 {
 	public class RegisterValidator : AbstractValidator<RegisterModel>
 	{
