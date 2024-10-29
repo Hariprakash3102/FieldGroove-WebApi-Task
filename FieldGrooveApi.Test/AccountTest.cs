@@ -13,13 +13,15 @@ namespace FieldGrooveApi.Test
 {
     public class AccountTest
     {
-        private readonly RegisterValidator _validator;
+        private readonly RegisterValidator _RegisterValidator;
+        private readonly LoginValidator _LoginValidator;
         private readonly Mock<IConfiguration> configuration;
         private readonly ApplicationDbContext DbContext;
         private readonly AccountController controller;
         public AccountTest()
         {
-            _validator = new RegisterValidator();
+            _RegisterValidator = new RegisterValidator();
+            _LoginValidator = new LoginValidator();
 
             configuration = new Mock<IConfiguration>();
 
@@ -142,7 +144,7 @@ namespace FieldGrooveApi.Test
                 Zip = "636139"
             };
 
-            var result = _validator.TestValidate(RegisterData);
+            var result = _RegisterValidator.TestValidate(RegisterData);
             Assert.False(result.IsValid);
         }
         [Fact]
@@ -165,7 +167,7 @@ namespace FieldGrooveApi.Test
                 Zip = "636139"
             };
 
-            var result = _validator.TestValidate(RegisterData);
+            var result = _RegisterValidator.TestValidate(RegisterData);
             Assert.False(result.IsValid);
         }
         [Fact]
@@ -188,12 +190,12 @@ namespace FieldGrooveApi.Test
                 Zip = "636139"
             };
 
-            var result = _validator.TestValidate(RegisterData);
+            var result = _RegisterValidator.TestValidate(RegisterData);
             Assert.False(result.IsValid);
         }
 
         [Fact]
-        public async Task Should_Return_OkObjectResult()
+        public async Task Login_Should_Return_OkObjectResult()
         {
             InitializeDataBase();
 
@@ -210,7 +212,7 @@ namespace FieldGrooveApi.Test
 
         }
         [Fact]
-        public async Task Should_Return_NotFoundResult()
+        public async Task Login_Should_Return_NotFoundResult()
         {
             InitializeDataBase();
 
@@ -221,6 +223,26 @@ namespace FieldGrooveApi.Test
 
             // Assert
             Assert.IsType<NotFoundResult>(result);
+
+        }
+        [Fact]
+        public void Login_Email_Validation()
+        {
+            InitializeDataBase();
+
+            var loginData = new LoginModel { Email = "testgmail.com", Password = "Test@123" };
+            var result = _LoginValidator.TestValidate(loginData);
+            Assert.False(result.IsValid);
+
+        }
+        [Fact]
+        public void Login_Password_Validation()
+        {
+            InitializeDataBase();
+
+            var loginData = new LoginModel { Email = "testgmail.com", Password = "Test@123" };
+            var result = _LoginValidator.TestValidate(loginData);
+            Assert.False(result.IsValid);
 
         }
     }
