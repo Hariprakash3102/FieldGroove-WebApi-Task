@@ -52,7 +52,7 @@ namespace FieldGroove.Api.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterModel entity)
 		{
-			if (ModelState.IsValid)
+            if (ModelState.IsValid)
 			{
 				var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
 				if (!isUser)
@@ -63,7 +63,7 @@ namespace FieldGroove.Api.Controllers
 				}
 				return BadRequest(new { error = "User already registered" });
 			}
-			return BadRequest();
-		}
+			return BadRequest(entity);
+		 }
 	}
 }

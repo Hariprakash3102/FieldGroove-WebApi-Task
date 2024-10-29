@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using Microsoft.EntityFrameworkCore.InMemory;
 using System.Security.Cryptography;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http;
 
 namespace FieldGrooveApi.Test
 {
@@ -36,6 +39,7 @@ namespace FieldGrooveApi.Test
             DbContext = new ApplicationDbContext(options);
 
             controller = new AccountController(configuration.Object, DbContext);
+            controller.ModelState.Clear();
         }
 
         private void InitializeDataBase()
@@ -91,6 +95,87 @@ namespace FieldGrooveApi.Test
         }
         [Fact]
         public async Task Register_Should_Return_BadRequest_with_Object()
+        {
+            InitializeDataBase();
+            var RegisterData = new RegisterModel
+            {
+                Email = "test@gmail.com",
+                Password = "Test@123",
+                PasswordAgain = "Test@123",
+                CompanyName = "CIDC",
+                FirstName = "Nithish",
+                LastName = "sakthivel",
+                Phone = 7904352633,
+                City = "salem",
+                State = "TamilNadu",
+                StreetAddress1 = "Something",
+                StreetAddress2 = "blah blah",
+                TimeZone = "Mountain timeZone",
+                Zip = "636139"
+            };
+
+            // Act
+            var result = await controller.Register(RegisterData);
+                        // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+        [Fact]
+        public async Task Register_Email_Validation()
+        {
+            var RegisterData = new RegisterModel
+            {
+                Email = "testgmail.com",
+                Password = "Test@123",
+                PasswordAgain = "Test@123",
+                CompanyName = "CIDC",
+                FirstName = "Nithish",
+                LastName = "sakthivel",
+                Phone = 7904352633,
+                City = "salem",
+                State = "TamilNadu",
+                StreetAddress1 = "Something",
+                StreetAddress2 = "blah blah",
+                TimeZone = "Mountain timeZone",
+                Zip = "636139"
+            };
+
+
+            // Act
+            var result = await controller.Register(RegisterData);
+             // Assert
+            Assert.IsType<BadRequestResult>(result);
+
+        }
+        [Fact]
+        public async Task Register_PhoneNumber_Validation()
+        {
+            InitializeDataBase();
+            var RegisterData = new RegisterModel
+            {
+                Email = "test@gmail.com",
+                Password = "Test@123",
+                PasswordAgain = "Test@123",
+                CompanyName = "CIDC",
+                FirstName = "Nithish",
+                LastName = "sakthivel",
+                Phone = 79043526,
+                City = "salem",
+                State = "TamilNadu",
+                StreetAddress1 = "Something",
+                StreetAddress2 = "blah blah",
+                TimeZone = "Mountain timeZone",
+                Zip = "636139"
+            };
+
+            // Act
+            var result = await controller.Register(RegisterData);
+                        // Assert
+            Assert.IsType<BadRequestResult>(result);
+
+        }  
+        [Fact]
+        public async Task Register_Password_Validation()
         {
             InitializeDataBase();
             var RegisterData = new RegisterModel
