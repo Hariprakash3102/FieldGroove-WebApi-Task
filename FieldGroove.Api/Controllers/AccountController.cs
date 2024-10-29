@@ -52,7 +52,12 @@ namespace FieldGroove.Api.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterModel entity)
 		{
-			if (ModelState.IsValid)
+            //if (!TryValidateModel(entity))
+            //{
+            //    return BadRequest(ModelState); // Return model state with errors for better insights
+            //}
+
+            if (ModelState.IsValid)
 			{
 				var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
 				if (!isUser)

@@ -55,6 +55,8 @@ namespace FieldGroove.MVC.Controllers
 		[HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
+            // Assert
+
             if (ModelState.IsValid)
             {
                 var client = _httpClientFactory.CreateClient();

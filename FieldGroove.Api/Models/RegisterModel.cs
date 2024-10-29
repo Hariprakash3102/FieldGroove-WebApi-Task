@@ -19,9 +19,9 @@ namespace FieldGroove.Api.Models
         public long Phone { get; set; }
 
         [Key]
+        //[EmailAddress(ErrorMessage = "Invalid email format.")]
         [Display(Name = "Email*")]
         [Required(ErrorMessage = "Email is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email format.")]
         public required string Email { get; set; }
 
         [Display(Name = "Password*")]
