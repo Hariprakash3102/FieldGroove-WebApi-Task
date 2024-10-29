@@ -1,4 +1,7 @@
 using FieldGroove.Api.Data;
+using FieldGroove.MVC.Validation;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +17,12 @@ using (var Random = RandomNumberGenerator.Create())
 {
     Random.GetBytes(secretByte);
 }
+
+
+builder.Services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters()
+    .AddValidatorsFromAssemblyContaining<RegisterValidator>();
+
 
 string secretKey = Convert.ToBase64String(secretByte);
 

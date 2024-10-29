@@ -96,6 +96,7 @@ namespace FieldGrooveApi.Test
         [Fact]
         public async Task Register_Should_Return_BadRequest_with_Object()
         {
+            //Arrange
             InitializeDataBase();
             var RegisterData = new RegisterModel
             {
@@ -116,7 +117,7 @@ namespace FieldGrooveApi.Test
 
             // Act
             var result = await controller.Register(RegisterData);
-                        // Assert
+            // Assert
             Assert.IsType<BadRequestObjectResult>(result);
 
         }
@@ -199,6 +200,36 @@ namespace FieldGrooveApi.Test
             var result = await controller.Register(RegisterData);
                         // Assert
             Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+
+        public async Task Register_Validate_the_Email_with_BabRequest()
+        {
+            //Arrange
+            DbContext.UserData.RemoveRange(DbContext.UserData);
+            var RegisterData = new RegisterModel
+            {
+                Email = "test1@gmail.com",
+                Password = "Test@123",
+                PasswordAgain = "Test@123",
+                CompanyName = "CIDC",
+                FirstName = "Nithish",
+                LastName = "sakthivel",    
+                Phone = 7904352633,
+                City = "salem",
+                State = "TamilNadu",
+                StreetAddress1 = "Something",
+                StreetAddress2 = "blah blah",
+                TimeZone = "Mountain timeZone",
+                Zip = "636139"
+            };
+
+            // Act
+            var result = await controller.Register(RegisterData);
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
 
         }
 
