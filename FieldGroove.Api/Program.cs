@@ -18,15 +18,13 @@ using (var Random = RandomNumberGenerator.Create())
     Random.GetBytes(secretByte);
 }
 
+string secretKey = Convert.ToBase64String(secretByte);
+
+builder.Configuration["Jwt:Key"] = secretKey;
 
 builder.Services.AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters()
     .AddValidatorsFromAssemblyContaining<RegisterValidator>();
-
-
-string secretKey = Convert.ToBase64String(secretByte);
-
-builder.Configuration["Jwt:Key"] = secretKey;
 
 builder.Services.AddCors(options => options.AddPolicy("policy", x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
