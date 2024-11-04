@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient("FieldGrooveApi", options =>
 {
-	options.BaseAddress = new Uri("https://localhost:7222/api/");
+	options.BaseAddress = new Uri("https://localhost:7252/api/");
 });
 
 builder.Services.AddFluentValidationAutoValidation()

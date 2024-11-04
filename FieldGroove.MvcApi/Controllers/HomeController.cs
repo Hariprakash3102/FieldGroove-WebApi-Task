@@ -3,10 +3,11 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using FieldGroove.MvcApi.Models;
 using FieldGroove.MvcApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FieldGroove.MvcApi.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
@@ -24,14 +25,8 @@ namespace FieldGroove.MvcApi.Controllers
         public async Task<IActionResult> Leads()
         {
             var User = await dbcontext.Leads.ToListAsync();
-            var response = new
-            {
-                Data = User,
-                TotalCount = User.Count,
-                Status = "success",
-                Timestamp = DateTime.UtcNow.ToString("o")
-            };
-            return Ok(response);
+          
+            return Ok(User);
         }
 
         [HttpGet("Leads/{id:int}")]

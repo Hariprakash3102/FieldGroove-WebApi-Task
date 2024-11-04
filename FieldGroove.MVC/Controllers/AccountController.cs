@@ -1,14 +1,15 @@
 ﻿using FieldGroove.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 
 namespace FieldGroove.MVC.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory httpClientFactory;
         public AccountController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+            this.httpClientFactory = httpClientFactory;
         }
 
 		// Index Action for HttpGet in MVC Controller
@@ -34,8 +35,8 @@ namespace FieldGroove.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var client = _httpClientFactory.CreateClient();
-                var response = await client.PostAsJsonAsync("https://localhost:7222/api/Account/Login", model);
+                var client = httpClientFactory.CreateClient("FieldGrooveApi");
+                var response = await client.PostAsJsonAsync("Account/Login", model);
                 if (response.IsSuccessStatusCode)
                     return RedirectToAction("Dashboard", "Home");
             }
@@ -59,8 +60,8 @@ namespace FieldGroove.MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                var client = _httpClientFactory.CreateClient();
-                var response = await client.PostAsJsonAsync("https://localhost:7222/api/Account/Register", model);
+                var client = httpClientFactory.CreateClient("FieldGrooveApi");
+                var response = await client.PostAsJsonAsync("Account/Register", model);
                 if (response.IsSuccessStatusCode)
                     return RedirectToAction("WaitingActivation", "Account");
             }
