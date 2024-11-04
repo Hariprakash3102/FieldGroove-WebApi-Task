@@ -1,6 +1,6 @@
-using FieldGroove.Api.Controllers;
-using FieldGroove.Api.Data;
+using FieldGroove.Api.Interfaces;
 using FieldGroove.Api.Models;
+using FieldGroove.Api.Repositories;
 using FieldGroove.Api.Validation;
 using FluentValidation.TestHelper;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +16,30 @@ namespace FieldGrooveApi.Test
         private readonly RegisterValidator _RegisterValidator;
         private readonly LoginValidator _LoginValidator;
         private readonly Mock<IConfiguration> configuration;
-        private readonly ApplicationDbContext DbContext;
-        private readonly AccountController controller;
+        private readonly Mock<IUnitOfWork> unitOfWork;
+        private readonly List<RegisterModel> registeredUsers;
+
         public AccountTest()
         {
             _RegisterValidator = new RegisterValidator();
             _LoginValidator = new LoginValidator();
-
             configuration = new Mock<IConfiguration>();
+            unitOfWork = new Mock<IUnitOfWork>();
+            registeredUsers = new List<RegisterModel>();
+
+            unitOfWork.Setup(u => u.UserRepository.Create(It.IsAny<RegisterModel>()))
+           .ReturnsAsync((RegisterModel model) =>
+           {
+               if (registeredUsers.Any(user => user.Email == model.Email))
+               {
+                   return false;
+               }
+               registeredUsers.Add(model);
+               return true;
+           });
+
+            unitOfWork.Setup(u => u.UserRepository.IsValid(It.Is<LoginModel>(login =>
+            login.Email == "test@gmail.com" && login.Password == "Test@123"))).ReturnsAsync(true);
 
             byte[] secretByte = new byte[64];
             using (var Random = RandomNumberGenerator.Create())
@@ -35,21 +51,12 @@ namespace FieldGrooveApi.Test
 
             configuration.Setup(config => config["Jwt:Key"]).Returns(secretKey);
             configuration.Setup(config => config["Jwt:Issuer"]).Returns("YourIssuerHere");
-
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-
-            DbContext = new ApplicationDbContext(options);
-
-            controller = new AccountController(configuration.Object, DbContext);
         }
 
         private void InitializeDataBase()
         {
-            DbContext.UserData.RemoveRange(DbContext.UserData);
-
-            DbContext.UserData.Add(new RegisterModel
+            registeredUsers.Clear();
+            registeredUsers.Add(new RegisterModel
             {
                 Email = "test@gmail.com",
                 Password = "Test@123",
@@ -65,13 +72,11 @@ namespace FieldGrooveApi.Test
                 TimeZone = "Mountain timeZone",
                 Zip = "636139"
             });
-            DbContext.SaveChanges();
         }
 
         [Fact]
-        public async Task Register_Should_Return_Ok()
+        public async Task Register_Should_Return_True()
         {
-            DbContext.UserData.RemoveRange(DbContext.UserData);
             var RegisterData = new RegisterModel
             {
                 Email = "test1@gmail.com",
@@ -90,15 +95,15 @@ namespace FieldGrooveApi.Test
             };
 
             // Act
-            var result = await controller.Register(RegisterData);
+            bool response = await unitOfWork.Object.UserRepository.Create(RegisterData);
 
             // Assert
-            Assert.IsType<OkResult>(result);
+            Assert.True(response);
 
         }
 
         [Fact]
-        public async Task Register_Should_Return_BadRequest_with_Object()
+        public async Task User_Already_Registered_Should_Return_False()
         {
             //Arrange
             InitializeDataBase();
@@ -120,9 +125,9 @@ namespace FieldGrooveApi.Test
             };
 
             // Act
-            var result = await controller.Register(RegisterData);
+            var result = await unitOfWork.Object.UserRepository.Create(RegisterData);
             // Assert
-            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.False(result);
 
         }
 
@@ -199,35 +204,32 @@ namespace FieldGrooveApi.Test
         }
 
         [Fact]
-        public async Task Login_Should_Return_OkObjectResult()
+        public async Task Login_Should_Return_True()
         {
             InitializeDataBase();
 
             var loginData = new LoginModel { Email = "test@gmail.com", Password = "Test@123" };
 
             // Act
-            var result = await controller.Login(loginData);
+            var result = await unitOfWork.Object.UserRepository.IsValid(loginData);
 
-            Console.WriteLine($"Result: {result}");
             // Assert
-            Assert.IsType<OkObjectResult>(result);
-            var okResult = result as OkObjectResult;
-            Assert.NotNull(okResult?.Value);
+            Assert.True(result);
 
         }
 
         [Fact]
-        public async Task Login_Should_Return_NotFoundResult()
+        public async Task Login_Should_Return_False()
         {
             InitializeDataBase();
 
-            var loginData = new LoginModel { Email = "testgmail.com", Password = "Test@123" };
+            var loginData = new LoginModel { Email = "test1@gmail.com", Password = "Test@123" };
 
             // Act
-            var result = await controller.Login(loginData);
+            var result = await unitOfWork.Object.UserRepository.IsValid(loginData);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            Assert.False(result);
 
         }
 

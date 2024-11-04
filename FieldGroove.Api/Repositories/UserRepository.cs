@@ -7,20 +7,45 @@ namespace FieldGroove.Api.Repositories
 {
     public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
     {
-        public async Task Create(RegisterModel entity)
+        public async Task<bool> Create(RegisterModel entity)
         {
-            await dbContext.UserData.AddAsync(entity);
-            await dbContext.SaveChangesAsync();
+            try
+            {
+                await dbContext.UserData.AddAsync(entity);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex) 
+            { 
+               return false;
+            }
+            
         }
 
         public async Task<bool> IsRegistered(RegisterModel entity)
         {
-            return await dbContext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
+            try
+            {
+                return await dbContext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
         }
 
         public async Task<bool> IsValid(LoginModel entity)
         {
-            return await dbContext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
+            try
+            {
+                return await dbContext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+           
         }
     }
 }

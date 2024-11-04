@@ -23,6 +23,7 @@ namespace FieldGroove.Api.Controllers
 
 		[HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Login([FromBody] LoginModel entity)
 		{
@@ -42,8 +43,9 @@ namespace FieldGroove.Api.Controllers
 					};
                     return Ok(response);
                 }
+                return NotFound("User Not Found");
             }
-            return NotFound();
+            return BadRequest();
         }
 
 		// Register Action in Api Controller
@@ -51,6 +53,8 @@ namespace FieldGroove.Api.Controllers
 		[HttpPost("Register")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Register([FromBody] RegisterModel entity)
 		{
             if (ModelState.IsValid)
@@ -58,10 +62,10 @@ namespace FieldGroove.Api.Controllers
 				var isUser = await unitOfWork.UserRepository.IsRegistered(entity);
                 if (!isUser)
 				{
-					await unitOfWork.UserRepository.Create(entity);
-					return Ok();
+					bool response =await unitOfWork.UserRepository.Create(entity);
+					return response? Ok(): StatusCode(500, "An internal server error occurred.");
 				}
-				return BadRequest(new { error = "User already registered" });
+				return Conflict(new { error = "User already registered" });
 			}
 			return BadRequest(entity);
 		 }
