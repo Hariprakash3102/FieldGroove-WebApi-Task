@@ -96,6 +96,7 @@ namespace FieldGrooveApi.Test
             Assert.IsType<OkResult>(result);
 
         }
+
         [Fact]
         public async Task Register_Should_Return_BadRequest_with_Object()
         {
@@ -124,6 +125,7 @@ namespace FieldGrooveApi.Test
             Assert.IsType<BadRequestObjectResult>(result);
 
         }
+
         [Fact]
         public void Register_Email_Validation()
         {
@@ -147,6 +149,7 @@ namespace FieldGrooveApi.Test
             var result = _RegisterValidator.TestValidate(RegisterData);
             Assert.False(result.IsValid);
         }
+
         [Fact]
         public void Register_Phone_Validation()
         {
@@ -170,6 +173,7 @@ namespace FieldGrooveApi.Test
             var result = _RegisterValidator.TestValidate(RegisterData);
             Assert.False(result.IsValid);
         }
+
         [Fact]
         public void Register_Password_Validation()
         {
@@ -211,6 +215,7 @@ namespace FieldGrooveApi.Test
             Assert.NotNull(okResult?.Value);
 
         }
+
         [Fact]
         public async Task Login_Should_Return_NotFoundResult()
         {
@@ -225,6 +230,7 @@ namespace FieldGrooveApi.Test
             Assert.IsType<NotFoundResult>(result);
 
         }
+
         [Fact]
         public void Login_Email_Validation()
         {
@@ -235,6 +241,7 @@ namespace FieldGrooveApi.Test
             Assert.False(result.IsValid);
 
         }
+
         [Fact]
         public void Login_Password_Validation()
         {
