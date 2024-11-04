@@ -1,22 +1,16 @@
-﻿using FieldGroove.Api.Data;
-using FieldGroove.Api.Models;
+﻿using FieldGroove.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using FieldGroove.Api.Interfaces;
 
 namespace FieldGroove.Api.Controllers
 {
 	[Authorize]
 	[Route("api/[controller]")]
 	[ApiController]
-	public class HomeController : ControllerBase
+	public class HomeController(IUnitOfWork unitOfWork) : ControllerBase
 	{
-		private readonly ApplicationDbContext dbcontext;
-		public HomeController(ApplicationDbContext dbcontext)
-		{
-			this.dbcontext = dbcontext;
-		}
 
 		//Leads Action in Api Controller
 
@@ -24,7 +18,7 @@ namespace FieldGroove.Api.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IActionResult> Leads()
 		{
-			var User = await dbcontext.Leads.ToListAsync();
+			var User = await unitOfWork.LeadsRepository.GetAll();
             var response = new 
             {
                 Data = User,
@@ -39,7 +33,7 @@ namespace FieldGroove.Api.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IActionResult> Leads(int id)
 		{
-			var User = await dbcontext.Leads.FindAsync(id);
+			var User = await unitOfWork.LeadsRepository.GetById(id);
             return Ok(User);
 		}
 
@@ -52,8 +46,7 @@ namespace FieldGroove.Api.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				await dbcontext.Leads.AddAsync(model);
-				await dbcontext.SaveChangesAsync();
+				await unitOfWork.LeadsRepository.Create(model);
 				return Ok();
 			}
 			return BadRequest();
@@ -69,10 +62,9 @@ namespace FieldGroove.Api.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				if (await dbcontext.Leads.AnyAsync(x => x.Id == model.Id))
+				if (await unitOfWork.LeadsRepository.isAny((int)model.Id!))
 				{
-					dbcontext.Leads.Update(model);
-					await dbcontext.SaveChangesAsync();
+                    await unitOfWork.LeadsRepository.Update(model);
 					return Ok(model);
 				}
 				return NotFound();
@@ -85,11 +77,10 @@ namespace FieldGroove.Api.Controllers
 		[HttpDelete("DeleteLead/{id:int}")]
 		public async Task<IActionResult> DeleteLead(int id)
 		{
-			var response = await dbcontext.Leads.FindAsync(id);
+			var response = await unitOfWork.LeadsRepository.GetById(id);
 			if (response is not null)
 			{
-				dbcontext.Leads.Remove(response);
-				await dbcontext.SaveChangesAsync();
+				await unitOfWork.LeadsRepository.Delete(response);
 				return Ok(response);
 			}
 			return NotFound();
@@ -100,7 +91,7 @@ namespace FieldGroove.Api.Controllers
 		[HttpGet("download-csv")]
 		public async Task<IActionResult> DownloadCsv()
 		{
-			var records = await dbcontext.Leads.ToListAsync();
+			var records = await unitOfWork.LeadsRepository.GetAll();
 
 			var csv = new StringBuilder();
 			csv.AppendLine("ID,Project Name,Status,Added,Type,Contact,Action,Assignee,Bid Date");

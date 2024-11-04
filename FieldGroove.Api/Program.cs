@@ -1,4 +1,6 @@
 using FieldGroove.Api.Data;
+using FieldGroove.Api.Interfaces;
+using FieldGroove.Api.Repositories;
 using FieldGroove.Api.Validation;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -27,6 +29,8 @@ builder.Services.AddFluentValidationAutoValidation()
     .AddValidatorsFromAssemblyContaining<RegisterValidator>();
 
 builder.Services.AddCors(options => options.AddPolicy("policy", x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAuthentication(options =>
 {

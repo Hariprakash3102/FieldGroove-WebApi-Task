@@ -1,4 +1,5 @@
 ﻿using FieldGroove.Api.Data;
+using FieldGroove.Api.Interfaces;
 using FieldGroove.Api.Models;
 using FieldGroove.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,11 @@ namespace FieldGroove.Api.Controllers
 	public class AccountController : ControllerBase
 	{
 		private readonly IConfiguration configuration;
-		private readonly ApplicationDbContext dbcontext;
-		public AccountController(IConfiguration configuration, ApplicationDbContext dbcontext)
+		private readonly IUnitOfWork unitOfWork;
+		public AccountController(IConfiguration configuration, IUnitOfWork unitOfWork)
 		{
 			this.configuration = configuration;
-			this.dbcontext = dbcontext;
+			this.unitOfWork = unitOfWork;
 		}
 
 		// Login Action in Api Controller
@@ -27,7 +28,7 @@ namespace FieldGroove.Api.Controllers
 		{
             if (ModelState.IsValid)
             {
-				var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x=>x.Email==entity.Email!);
+				var isUser = await unitOfWork.UserRepository.IsValid(entity);
                 if (isUser)
                 {
 					var JwtToken = new JwtToken(configuration);
@@ -54,11 +55,10 @@ namespace FieldGroove.Api.Controllers
 		{
             if (ModelState.IsValid)
 			{
-				var isUser = await dbcontext.UserData.AsQueryable().AnyAsync(x => x.Email == entity.Email!);
-				if (!isUser)
+				var isUser = await unitOfWork.UserRepository.IsRegistered(entity);
+                if (!isUser)
 				{
-					await dbcontext.UserData.AddAsync(entity);
-					await dbcontext.SaveChangesAsync();
+					await unitOfWork.UserRepository.Create(entity);
 					return Ok();
 				}
 				return BadRequest(new { error = "User already registered" });
