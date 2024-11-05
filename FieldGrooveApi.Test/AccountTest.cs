@@ -40,17 +40,6 @@ namespace FieldGrooveApi.Test
 
             unitOfWork.Setup(u => u.UserRepository.IsValid(It.Is<LoginModel>(login =>
             login.Email == "test@gmail.com" && login.Password == "Test@123"))).ReturnsAsync(true);
-
-            byte[] secretByte = new byte[64];
-            using (var Random = RandomNumberGenerator.Create())
-            {
-                Random.GetBytes(secretByte);
-            }
-
-            string secretKey = Convert.ToBase64String(secretByte);
-
-            configuration.Setup(config => config["Jwt:Key"]).Returns(secretKey);
-            configuration.Setup(config => config["Jwt:Issuer"]).Returns("YourIssuerHere");
         }
 
         private void InitializeDataBase()
@@ -75,7 +64,7 @@ namespace FieldGrooveApi.Test
         }
 
         [Fact]
-        public async Task Register_Should_Return_True()
+        public async Task New_Register_Should_Return_True()
         {
             var RegisterData = new RegisterModel
             {
@@ -204,7 +193,7 @@ namespace FieldGrooveApi.Test
         }
 
         [Fact]
-        public async Task Login_Should_Return_True()
+        public async Task Registered_User_Login_Should_Return_True()
         {
             InitializeDataBase();
 
@@ -219,7 +208,7 @@ namespace FieldGrooveApi.Test
         }
 
         [Fact]
-        public async Task Login_Should_Return_False()
+        public async Task Not_Registered_User_Login_Should_Return_False()
         {
             InitializeDataBase();
 

@@ -1,137 +1,143 @@
-﻿//using FieldGroove.Api.Controllers;
-//using FieldGroove.Api.Data;
-//using FieldGroove.Api.Models;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using FieldGroove.Api.Interfaces;
+using FieldGroove.Api.Models;
+using Moq;
 
-//namespace FieldGrooveApi.Test
-//{
-//    public class HomeTest
-//    {
-//        private readonly ApplicationDbContext context;
-//        private readonly HomeController controller;
-//        public HomeTest()
-//        {
-//            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-//            .UseInMemoryDatabase(databaseName: "TestDatabase")
-//            .Options;
 
-//            context = new ApplicationDbContext(options);
+namespace FieldGrooveApi.Test
+{
+    public class HomeTest
+    {
+        private readonly Mock<IUnitOfWork> unitOfWork;
+        private readonly List<LeadsModel> LeadsList;
+        public HomeTest()
+        {
+            unitOfWork = new Mock<IUnitOfWork>();
+            LeadsList = new List<LeadsModel>();
 
-//            controller = new HomeController(context);
-//        }
+            // Create Lead
+            unitOfWork.Setup(u => u.LeadsRepository.Create(It.Is<LeadsModel>(Leads =>
+                Leads.Id == 1 &&
+                Leads.ProjectName == "Field Groove" &&
+                Leads.Status == "Contacted" &&
+                Leads.Type == true &&
+                Leads.Contact == 8596744758 &&
+                Leads.Action == "Not Quote" &&
+                Leads.Assignee == "Hariprakash" &&
+                Leads.BidDate == new DateTime(12 / 06 / 2024).AddDays(36)))).ReturnsAsync(true);
 
-//        private void InitializeDataBase()
-//        {
-//            context.Leads.RemoveRange(context.Leads);
+            // Get All Leads
+            unitOfWork.Setup(u => u.LeadsRepository.GetAll()).ReturnsAsync(LeadsList);
 
-//            context.Leads.Add(new LeadsModel
-//            {
-//                Id= 1,
-//                ProjectName= "Field Groove",
-//                Status= "Contacted",
-//                Added = DateTime.Now,
-//                Type =true,
-//                Contact = 8596744758,
-//                Action= "Not Quote",
-//                Assignee = "Hariprakash",
-//                BidDate = DateTime.Now.AddDays(36),
-//            });
-//            context.SaveChanges();
-//        }
+            //Get By ID
+            unitOfWork.Setup(u => u.LeadsRepository.GetById(It.IsAny<int>())).ReturnsAsync(new LeadsModel
+            {
+                Id = 1,
+                ProjectName = "Field Groove",
+                Status = "Contacted",
+                Added = DateTime.Now,
+                Type = true,
+                Contact = 8596744758,
+                Action = "Not Quote",
+                Assignee = "Hariprakash",
+                BidDate = DateTime.Now.AddDays(36),
+            });
 
-//        [Fact]
-//        public async Task GetAllLeads_ReturnsOkResult_WithListOfLeads()
-//        {
-//            // Arrange
-//            InitializeDataBase();
+            //Delete Lead
+            unitOfWork.Setup(u => u.LeadsRepository.Delete(It.IsAny<LeadsModel>())).Callback<LeadsModel>(lead => LeadsList.RemoveAll(leadlist => leadlist.Id == lead.Id));
+        }
 
-//            // Act
-//            var result = await controller.Leads();
+        private void InitializeDataBase()
+        {
+            LeadsList.Clear();
+            LeadsList.Add(new LeadsModel
+            {
+                Id = 1,
+                ProjectName = "Field Groove",
+                Status = "Contacted",
+                Added = new DateTime(12 / 06 / 2024),
+                Type = true,
+                Contact = 8596744758,
+                Action = "Not Quote",
+                Assignee = "Hariprakash",
+                BidDate = DateTime.Now.AddDays(36),
+            });
+        }
 
-//            // Assert
-//            var okResult = Assert.IsType<OkObjectResult>(result);
-//            dynamic response = okResult.Value!;
-//            Assert.NotNull(response);
-//        }
+        [Fact]
+        public async Task GetAllLeads_Returns_LeadsList()
+        {
+            // Arrange
+            InitializeDataBase();
 
-//        [Fact]
+            // Act
+            var result = await unitOfWork.Object.LeadsRepository.GetAll();
 
-//        public async Task GetLeadById_ReturnsOkResult_WithLead()
-//        {
-//            // Arrange
-//            InitializeDataBase();
+            // Assert
+            Assert.IsType<List<LeadsModel>>(result);
+        }
 
-//            // Act
-//            var result = await controller.Leads(1);
+        [Fact]
 
-//            // Assert
-//            var okResult = Assert.IsType<OkObjectResult>(result);
-//            var lead = Assert.IsType<LeadsModel>(okResult.Value);
-//            Assert.Equal(1, lead.Id);
-//        }
+        public async Task GetLeadById_Returns_Lead_Object()
+        {
+            // Act
+            var result = await unitOfWork.Object.LeadsRepository.GetById(1);
 
-//        [Fact]
+            // Assert
+            var Result = Assert.IsType<LeadsModel>(result);
+        }
 
-//        public async Task CreateLead_ValidModel_ReturnsOkResult()
-//        {
-//            //Arrange
-//            var newLead = new LeadsModel
-//            {
-//                Id = 2,
-//                ProjectName = "Field Groove 2",
-//                Status = "Not Contacted",
-//                Added = DateTime.Now,
-//                Type = false,
-//                Contact = 9632587412,
-//                Action = "Quote",
-//                Assignee = "Nithish",
-//                BidDate = DateTime.Now.AddDays(2),
-//            };
+        [Fact]
 
-//            //Act
-//            var result = await controller.CreateLead(newLead);
+        public async Task CreateLead_ValidModel_Returns_true()
+        {
+            //Arrange
+            var newLead = new LeadsModel
+            {
+                Id = 1,
+                ProjectName = "Field Groove",
+                Status = "Contacted",
+                Added = new DateTime(12 / 06 / 2024),
+                Type = true,
+                Contact = 8596744758,
+                Action = "Not Quote",
+                Assignee = "Hariprakash",
+                BidDate = new DateTime(12 / 06 / 2024).AddDays(36),
+            };
 
-//            //Assert
-//            Assert.IsType<OkResult>(result);
-//        }
+            //Act
+            var result = await unitOfWork.Object.LeadsRepository.Create(newLead);
 
-//        [Fact]
-//        public async Task EditLead_ExistingLead_ReturnsOkResult()
-//        {
-//            // Arrange
-//            InitializeDataBase();
-//            var existingLead = context.Leads.First();
-//            existingLead.ProjectName = "Updated Project";
+            //Assert
+            Assert.True(result);
+        }
 
-//            // Act
-//            var result = await controller.EditLead(existingLead);
+        [Fact]
+        public async Task Edit_ExistingLead_Returns_True()
+        {
+            // Arrange
+            InitializeDataBase();
+            var existingLead = LeadsList[0];
+            existingLead.ProjectName = "Updated Project";
 
-//            // Assert
-//            var okResult = Assert.IsType<OkObjectResult>(result);
-//            var updatedLead = Assert.IsType<LeadsModel>(okResult.Value);
-//            Assert.Equal("Updated Project", updatedLead.ProjectName);
-//        }
+            // Act
+            await unitOfWork.Object.LeadsRepository.Update(existingLead);
 
-//        [Fact]
-//        public async Task DeleteLead_ValidId_ReturnsOkResult()
-//        {
-//            // Arrange
-//            InitializeDataBase();
+            // Assert            
+            Assert.Equal("Updated Project", LeadsList[0].ProjectName);
+        }
 
-//            // Act
-//            var result = await controller.DeleteLead(1);
+        [Fact]
+        public async Task DeleteLead_ValidId_Returns_True()
+        {
+            // Arrange
+            InitializeDataBase();
 
-//            // Assert
-//            var okResult = Assert.IsType<OkObjectResult>(result);
-//            var deletedLead = Assert.IsType<LeadsModel>(okResult.Value);
-//            //Assert.Equal(1, deletedLead.Id);
-//            Assert.Empty(context.Leads);
-//        }
-//    }
-//}
+            // Act
+            await unitOfWork.Object.LeadsRepository.Delete(LeadsList[0]);
+
+            // Assert
+            Assert.Empty(LeadsList);
+        }
+    }
+}

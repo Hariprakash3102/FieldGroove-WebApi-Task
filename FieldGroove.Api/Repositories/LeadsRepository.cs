@@ -7,15 +7,23 @@ namespace FieldGroove.Api.Repositories
 {
     public class LeadsRepository(ApplicationDbContext dbContext) : ILeadsRepository
     {
-        public async Task Create(LeadsModel leads)
+        public async Task<bool> Create(LeadsModel leads)
         {
-           await dbContext.Leads.AddAsync(leads);
-           await dbContext.SaveChangesAsync();
+            try
+            {
+                await dbContext.Leads.AddAsync(leads);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public async Task Delete(LeadsModel leads)
+        public async Task Delete(LeadsModel lead)
         {
-            dbContext.Leads.Remove(leads);
+            dbContext.Leads.Remove(lead);
             await dbContext.SaveChangesAsync();
         }
 
@@ -32,7 +40,7 @@ namespace FieldGroove.Api.Repositories
 
         public async Task<bool> isAny(int id)
         {
-            return await dbContext.Leads.AnyAsync(x=>x.Id == id);
+            return await dbContext.Leads.AnyAsync(x => x.Id == id);
         }
 
         public async Task Update(LeadsModel leads)
