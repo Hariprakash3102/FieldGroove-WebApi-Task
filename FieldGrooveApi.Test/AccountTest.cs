@@ -1,13 +1,10 @@
 using FieldGroove.Api.Interfaces;
 using FieldGroove.Api.Models;
-using FieldGroove.Api.Repositories;
 using FieldGroove.Api.Validation;
 using FluentValidation.TestHelper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using System.Security.Cryptography;
+
 
 namespace FieldGrooveApi.Test
 {
